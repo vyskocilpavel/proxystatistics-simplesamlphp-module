@@ -1,0 +1,16 @@
+#content {
+    max-width: 960px;
+}
+
+div#tableOfAllLogin{
+    padding-left: 25%;
+}
+
+
+div#summary{
+    padding-left: 10%;
+}
+
+table{
+    text-align: center;
+}
