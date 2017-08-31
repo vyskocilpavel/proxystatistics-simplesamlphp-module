@@ -5,7 +5,7 @@ include ("DatabaseCommand.php");
   * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
   */
 
-class sspmod_statisticsperun_Auth_Process_statistics extends SimpleSAML_Auth_ProcessingFilter
+class sspmod_proxystatistics_Auth_Process_statistics extends SimpleSAML_Auth_ProcessingFilter
 {
 	private $config;
 	private $reserved;
