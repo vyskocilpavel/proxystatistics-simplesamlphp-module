@@ -70,6 +70,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
+            data.sort([{column: 1, desc: true}]);
             chart.draw(data, options);
         }
     </script>
@@ -90,11 +91,12 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
             ]);
 
             var options = {
-                title: 'Acces to service'
+                title: 'Access to services'
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
 
+            data.sort([{column: 1, desc: true}]);
             chart.draw(data, options);
         }
     </script>
