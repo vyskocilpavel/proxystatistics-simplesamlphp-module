@@ -5,7 +5,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
  */
 ?>
 <link rel="stylesheet"  media="screen" type="text/css" href="<?php SimpleSAML_Module::getModuleUrl('proxystatistics/statisticsproxy.css')?>" />
-<h2>All login</h2>
+<h2>Number of logins per month</h2>
 <div id="tableOfAllLogin">
     <script type="text/javascript">
         google.charts.load('current', {'packages':['table']});
@@ -31,7 +31,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
 
 
 
-<h2>All login per IdP</h2>
+<h2>Overall logins per identity provider</h2>
 <div>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['table']});
@@ -39,8 +39,8 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
 
         function drawTable() {
             var data = new google.visualization.DataTable();
-            data.addColumn('date', 'Date');
-            data.addColumn('string', 'SourceIdp');
+            data.addColumn('date', 'Month');
+            data.addColumn('string', 'Identity provider');
             data.addColumn('number', 'Count');
             data.addRows([<?php DatabaseCommand::getLoginCountPerDeyPerService()?>]);
 
@@ -56,7 +56,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
     <div id="tablePerIdP"></div>
 </div>
 
-<h2> All access to the services</h2>
+<h2>Overall logins to service providers</h2>
 <div>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['table']});
@@ -64,8 +64,8 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
 
         function drawTable() {
             var data = new google.visualization.DataTable();
-            data.addColumn('date', 'Date');
-            data.addColumn('string', 'Service');
+            data.addColumn('date', 'Month');
+            data.addColumn('string', 'Service provider');
             data.addColumn('number', 'Count');
             data.addRows([<?php DatabaseCommand::getAccessToServicesPerMonth()?>]);
 

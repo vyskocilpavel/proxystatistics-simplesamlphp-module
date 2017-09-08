@@ -6,7 +6,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
  */
 
 ?>
-<h2>All logins</h2>
+<h2>Number of logins</h2>
 <div>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart', 'controls']});
@@ -33,7 +33,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
                 'chartType' : 'LineChart',
                 'containerId' : 'line_div',
                 'options':{
-                    'title' :'Login count per Day',
+                    'title' :'Number of logins per day',
                     'legend' : 'none'
                 }
             });
@@ -51,7 +51,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
 
 </div>
 
-<h2>Logins per IdP</h2>
+<h2>Identity providers</h2>
 <div>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
@@ -65,7 +65,8 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
             ]);
 
             var options = {
-                title: 'Login per IdP'
+                title: 'Overall logins per identity provider',
+		pieSliceText: 'value'
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart'));
@@ -77,7 +78,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
     <div id="piechart" style="width: 900px; height: 500px;"></div>
 </div>
 
-<h2>Access to the services</h2>
+<h2>Service providers</h2>
 <div>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
@@ -91,7 +92,8 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
             ]);
 
             var options = {
-                title: 'Access to services'
+                title: 'Overall logins to service providers',
+		pieSliceText: 'value'
             };
 
             var chart = new google.visualization.PieChart(document.getElementById('piechart2'));

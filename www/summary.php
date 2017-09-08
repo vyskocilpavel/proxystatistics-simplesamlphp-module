@@ -17,10 +17,10 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
             data.addColumn('string', 'Name');
             data.addColumn('number', 'Count');
             data.addRows([
-                ['Total number of logins ', <?php DatabaseCommand::getCountOfAllLogins()?> ],
-                ['Number of logins for today’', <?php DatabaseCommand::getCountOfAllLoginsForToday()?>],
-                ['Number of accessed Services', <?php DatabaseCommand::getCountOfAccesedServices()?>],
-                ['Number of used Idp', <?php DatabaseCommand::getCountOfUsedIdp()?>]
+                ['Overall number of logins', <?php DatabaseCommand::getCountOfAllLogins()?> ],
+                ['Total number of accessed service providers', <?php DatabaseCommand::getCountOfAccesedServices()?>],
+                ['Total number of used identity providers', <?php DatabaseCommand::getCountOfUsedIdp()?>],
+                ['Number of logins for today', <?php DatabaseCommand::getCountOfAllLoginsForToday()?>]
                 ]);
 
             var table = new google.visualization.Table(document.getElementById('summaryTable'));
