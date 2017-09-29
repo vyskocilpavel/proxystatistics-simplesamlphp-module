@@ -1,7 +1,13 @@
 # proxystatistics-simplesamlphp-module
 Module for simpleSAMLphp which shows Proxy IdP/SP statistics
 
-Guide for use module statistic
+## Instalation
+Once you have installed SimpleSAMLphp, installing this module is very simple. First of all, you will need to download Composer if you haven't already. After installing Composer, just execute the following command in the root of your SimpleSAMLphp installation:
+
+      `php composer.phar require CESNET/proxystatistics:dev-master`
+
+
+## Configuration
 1. Install MySQL Database and create database for statistics and user. 
 2. For this database run script to create tables. Script is available in config-templates/tables.sql.
 3. Copy config-templates/module_statisticsproxy.php to your folder vith config and filled it.
