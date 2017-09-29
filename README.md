@@ -4,7 +4,7 @@ Module for simpleSAMLphp which shows Proxy IdP/SP statistics
 ## Instalation
 Once you have installed SimpleSAMLphp, installing this module is very simple. First of all, you will need to download Composer if you haven't already. After installing Composer, just execute the following command in the root of your SimpleSAMLphp installation:
 
-      `php composer.phar require CESNET/proxystatistics:dev-master`
+`php composer.phar require CESNET/proxystatistics:dev-master`
 
 
 ## Configuration
