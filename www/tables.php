@@ -5,7 +5,7 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
  */
 ?>
 <link rel="stylesheet"  media="screen" type="text/css" href="<?php SimpleSAML_Module::getModuleUrl('proxystatistics/statisticsproxy.css')?>" />
-<h2>Number of logins per month</h2>
+<h2>Number of logins per day</h2>
 <div id="tableOfAllLogin">
     <script type="text/javascript">
         google.charts.load('current', {'packages':['table']});
