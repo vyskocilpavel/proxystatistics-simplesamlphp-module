@@ -2,6 +2,10 @@
     max-width: 960px;
 }
 
+#content, #footer {
+    padding: 0;
+}
+
 div#tableOfAllLogin{
     padding-left: 25%;
 }
