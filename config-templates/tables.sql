@@ -1,5 +1,5 @@
-#Statistics for proxy
-CREATE TABLE statistics_proxy (
+#Statistics for IdPs
+CREATE TABLE identityProviders (
 	year INT NOT NULL,
 	month INT NOT NULL,
 	day INT NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE statistics_proxy (
 );
 
 #Statistics for services
-CREATE TABLE statistics_services( 
+CREATE TABLE serviceProviders(
 	year INT NOT NULL,
 	month INT NOT NULL,
 	day INT NOT NULL,

@@ -9,16 +9,16 @@ class databaseConnector
     private $username;
     private $password;
     private $databaseName;
-    private $proxyTableName;
-    private $servicesTableName;
+    private $identityProvidersTableName;
+    private $serviceProvidersTableName;
 
     const CONFIG_FILE_NAME = 'module_statisticsproxy.php';
     const SERVER  = 'serverName';
     const USER = 'userName';
     const PASSWORD = 'password';
     const DATABASE = 'databaseName';
-    const PROXY_TABLE_NAME = 'proxyTableName';
-    const SERVICES_TABLE_NAME = 'servicesProxyName' ;
+    const IDP_TABLE_NAME = 'identityProvidersTableName';
+    const SP_TABLE_NAME = 'serviceProvidersTableName' ;
 
 
 
@@ -29,8 +29,8 @@ class databaseConnector
         $this->username = $conf->getString(self::USER);
         $this->password = $conf->getString(self::PASSWORD);
         $this->databaseName = $conf->getString(self::DATABASE);
-        $this->proxyTableName = $conf->getString(self::PROXY_TABLE_NAME);
-        $this->servicesTableName = $conf->getString(self::SERVICES_TABLE_NAME);
+        $this->identityProvidersTableName = $conf->getString(self::IDP_TABLE_NAME);
+        $this->serviceProvidersTableName = $conf->getString(self::SP_TABLE_NAME);
     }
 
     public function getConnection()
@@ -40,15 +40,15 @@ class databaseConnector
         return $conn;
     }
 
-    public function getProxyTableName()
+    public function getIdentityProvidersTableName()
     {
-        return $this->proxyTableName;
+        return $this->identityProvidersTableName;
 
     }
 
-    public function getServicesTableName()
+    public function getServiceProvidersTableName()
     {
-        return $this->servicesTableName;
+        return $this->serviceProvidersTableName;
 
     }
 

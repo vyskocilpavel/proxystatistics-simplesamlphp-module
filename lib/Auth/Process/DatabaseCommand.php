@@ -12,18 +12,18 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $proxyTableName = $databaseConnector->getProxyTableName();
-        $servicesTableName = $databaseConnector->getServicesTableName();
+        $identityProvidersTableName = $databaseConnector->getIdentityProvidersTableName();
+        $serviceProvidersTableName = $databaseConnector->getServiceProvidersTableName();
         $sourceIdp = $request['saml:sp:IdP'];
         $service = $request['Destination']['name']['en'];
 
-        $sql = "INSERT INTO ".$proxyTableName."(year, month, day, sourceIdp, count) VALUES ('".$date->format('Y')."','".$date->format('m')  ."','".$date->format('d')."','".$sourceIdp."','1') ON DUPLICATE KEY UPDATE count = count + 1";
+        $sql = "INSERT INTO ".$identityProvidersTableName."(year, month, day, sourceIdp, count) VALUES ('".$date->format('Y')."','".$date->format('m')  ."','".$date->format('d')."','".$sourceIdp."','1') ON DUPLICATE KEY UPDATE count = count + 1";
         SimpleSAML_Logger::info($sql);
         if ($conn->query($sql) === FALSE) {
             SimpleSAML_Logger::error("The login log wasn't inserted into the database.");
         }
 
-        $sql = "INSERT INTO ".$servicesTableName."(year, month, day, service, count) VALUES ('".$date->format('Y')."','".$date->format('m')  ."','".$date->format('d')."','".$service."','1') ON DUPLICATE KEY UPDATE count = count + 1";
+        $sql = "INSERT INTO ".$serviceProvidersTableName."(year, month, day, service, count) VALUES ('".$date->format('Y')."','".$date->format('m')  ."','".$date->format('d')."','".$service."','1') ON DUPLICATE KEY UPDATE count = count + 1";
         SimpleSAML_Logger::info($sql);
         if ($conn->query($sql) === FALSE) {
             SimpleSAML_Logger::error("The login log wasn't inserted into the database.");
@@ -37,7 +37,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getProxyTableName();
+        $table_name = $databaseConnector->getIdentityProvidersTableName();
         $sql = "SELECT year, month, day, SUM(count) AS count FROM ".$table_name." GROUP BY year,month,day";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
@@ -52,7 +52,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getProxyTableName();
+        $table_name = $databaseConnector->getIdentityProvidersTableName();
         $sql = "SELECT year, month, sourceIdp, SUM(count) AS count FROM ".$table_name. " GROUP BY year, month, sourceIdp HAVING sourceIdp != ''";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
@@ -66,7 +66,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getServicesTableName();
+        $table_name = $databaseConnector->getServiceProvidersTableName();
         $sql = "SELECT year, month, service, SUM(count) AS count FROM ".$table_name." GROUP BY year, month, service HAVING service != ''";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
@@ -79,7 +79,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getProxyTableName();
+        $table_name = $databaseConnector->getIdentityProvidersTableName();
         $sql = "SELECT SUM(count) AS count FROM " . $table_name;
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
@@ -100,7 +100,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getProxyTableName();
+        $table_name = $databaseConnector->getIdentityProvidersTableName();
         $sql = "SELECT SUM(count) AS count FROM " . $table_name." WHERE year = ".$dateTime->format('Y')." AND month=".$dateTime->format('m')." AND day = ".$dateTime->format('d');
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
@@ -120,7 +120,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getServicesTableName();
+        $table_name = $databaseConnector->getServiceProvidersTableName();
         $sql = "SELECT service, SUM(count) AS count FROM ".$table_name." GROUP BY service HAVING service != ''";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
@@ -134,7 +134,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getProxyTableName();
+        $table_name = $databaseConnector->getIdentityProvidersTableName();
         $sql = "SELECT sourceIdp, SUM(count) AS count FROM ".$table_name." GROUP BY sourceIdp HAVING sourceIdp != ''";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
@@ -148,7 +148,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getProxyTableName();
+        $table_name = $databaseConnector->getIdentityProvidersTableName();
         $sql = "SELECT COUNT(*) AS count FROM (SELECT DISTINCT sourceIdp FROM ".$table_name." ) AS idps WHERE sourceIdp != ''";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {
@@ -167,7 +167,7 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getServicesTableName();
+        $table_name = $databaseConnector->getServiceProvidersTableName();
         $sql = "SELECT COUNT(*) AS count FROM (SELECT DISTINCT service FROM ".$table_name." ) AS services WHERE service != ''";
         $result = $conn->query($sql);
         while($row = $result->fetch_assoc()) {

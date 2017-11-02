@@ -16,7 +16,7 @@ $config = array(
 
     'databaseName' => 'STATS',
 
-    'proxyTableName' => 'statistics_proxy',
+    'identityProvidersTableName' => 'identityProviders',
 
-    'servicesProxyName' => 'statistics_services',
+    'serviceProvidersTableName' => 'serviceProviders',
 );
