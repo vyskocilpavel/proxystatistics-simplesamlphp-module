@@ -20,7 +20,9 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
                 ['Overall number of logins', <?php DatabaseCommand::getCountOfAllLogins()?> ],
                 ['Total number of accessed service providers', <?php DatabaseCommand::getCountOfAccesedServices()?>],
                 ['Total number of used identity providers', <?php DatabaseCommand::getCountOfUsedIdp()?>],
-                ['Number of logins for today', <?php DatabaseCommand::getCountOfAllLoginsForToday()?>]
+                ['Number of logins for today', <?php DatabaseCommand::getCountOfAllLoginsForToday()?>],
+                ['Average number of logins per day', <?php DatabaseCommand::getAverageLoginCountPerDay()?>],
+                ['Maximal number of logins per day', <?php DatabaseCommand::getMaxLoginCountPerDay()?>]
                 ]);
 
             var table = new google.visualization.Table(document.getElementById('summaryTable'));

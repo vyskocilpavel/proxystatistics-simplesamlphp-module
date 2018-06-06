@@ -180,4 +180,42 @@ class DatabaseCommand
         }
         echo $count;
     }
+
+	public static function getAverageLoginCountPerDay()
+	{
+		$databaseConnector = new DatabaseConnector();
+		$conn = $databaseConnector->getConnection();
+		assert($conn != NULL);
+		$table_name = $databaseConnector->getServiceProvidersTableName();
+		$sql = "SELECT AVG(count) as avg_count FROM (SELECT year, month, day, SUM(count) AS count FROM " . $table_name .  " GROUP BY year,month,day ) AS average_count;";
+		$result = $conn->query($sql);
+		while($row = $result->fetch_assoc()) {
+			$avg_count = $row["avg_count"];
+		}
+		$conn->close();
+		if ($avg_count === null)
+		{
+			$avg_count = 0;
+		}
+		echo round($avg_count);
+	}
+
+	public static function getMaxLoginCountPerDay()
+	{
+		$databaseConnector = new DatabaseConnector();
+		$conn = $databaseConnector->getConnection();
+		assert($conn != NULL);
+		$table_name = $databaseConnector->getServiceProvidersTableName();
+		$sql = "SELECT MAX(count) as max_count FROM (SELECT year, month, day, SUM(count) AS count FROM " . $table_name .  " GROUP BY year,month,day ) AS maximal_count;";
+		$result = $conn->query($sql);
+		while($row = $result->fetch_assoc()) {
+			$max_count = $row["max_count"];
+		}
+		$conn->close();
+		if ($max_count === null)
+		{
+			$max_count = 0;
+		}
+		echo $max_count;
+	}
 }
