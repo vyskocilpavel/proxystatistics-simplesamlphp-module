@@ -14,7 +14,7 @@ class DatabaseCommand
         assert($conn != NULL);
         $identityProvidersTableName = $databaseConnector->getIdentityProvidersTableName();
         $serviceProvidersTableName = $databaseConnector->getServiceProvidersTableName();
-        $sourceIdp = $request['saml:sp:IdP'];
+        $sourceIdp = $request['Attributes']['sourceIdPName'][0];
         $service = $request['Destination']['name']['en'];
         $year = $date->format('Y');
         $month = $date->format('m');

@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file.
 
 [Changed]
 - Database commands use prepared statements
+- Saving SourceIdPName instead of EntityId
 
 ## [v1.1.0]
 [Added]
