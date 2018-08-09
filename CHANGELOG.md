@@ -7,6 +7,9 @@ All notable changes to this project will be documented in this file.
 - Dictionary
 - Czech translation
 
+[Changed]
+- Database commands use prepared statements
+
 ## [v1.1.0]
 [Added]
 - Added average and maximal count of logins per day into summary table
