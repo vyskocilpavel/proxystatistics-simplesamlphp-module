@@ -41,7 +41,7 @@ class DatabaseCommand
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
         $table_name = $databaseConnector->getIdentityProvidersTableName();
-        $stmt = $conn->prepare("SELECT year, month, day, SUM(count) AS count FROM ".$table_name." GROUP BY year,month,day");
+        $stmt = $conn->prepare("SELECT year, month, day, SUM(count) AS count FROM ".$table_name." GROUP BY year DESC,month DESC,day DESC");
         $stmt->execute();
         $result = $stmt->get_result();
         while($row = $result->fetch_assoc()) {
@@ -57,7 +57,7 @@ class DatabaseCommand
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
         $table_name = $databaseConnector->getIdentityProvidersTableName();
-        $stmt = $conn->prepare("SELECT year, month, sourceIdp, SUM(count) AS count FROM ".$table_name. " GROUP BY year, month, sourceIdp HAVING sourceIdp != ''");
+        $stmt = $conn->prepare("SELECT year, month, sourceIdp, SUM(count) AS count FROM ".$table_name. " GROUP BY year, month, sourceIdp HAVING sourceIdp != '' ORDER BY year DESC, month DESC, count DESC");
         $stmt->execute();
         $result = $stmt->get_result();
         while($row = $result->fetch_assoc()) {
@@ -72,7 +72,7 @@ class DatabaseCommand
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
         $table_name = $databaseConnector->getServiceProvidersTableName();
-        $stmt = $conn->prepare("SELECT year, month, service, SUM(count) AS count FROM ".$table_name." GROUP BY year, month, service HAVING service != ''");
+        $stmt = $conn->prepare("SELECT year, month, service, SUM(count) AS count FROM ".$table_name." GROUP BY year DESC, month DESC, service HAVING service != '' ORDER BY year DESC, month DESC, count DESC");
         $stmt->execute();
         $result = $stmt->get_result();
         while($row = $result->fetch_assoc()) {
