@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Fixed]
+- Fixed the problem with getting utf8 chars from database
 
 ## [v1.2.0]
 [Added]
