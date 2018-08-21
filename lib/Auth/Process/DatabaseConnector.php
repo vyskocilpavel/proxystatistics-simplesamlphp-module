@@ -70,6 +70,7 @@ class databaseConnector
                 mysqli_real_connect($conn, $this->serverName, $this->username, $this->password, $this->databaseName, $this->port );
             }
         }
+        mysqli_set_charset($conn,"utf8");
         return $conn;
     }
 
