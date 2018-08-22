@@ -11,7 +11,9 @@ class databaseConnector
     private $password;
     private $databaseName;
     private $identityProvidersTableName;
+    private $identityProvidersMapTableName;
     private $serviceProvidersTableName;
+    private $serviceProvidersMapTableName;
     private $encryption;
     private $sslCA;
     private $sslCert;
@@ -25,7 +27,9 @@ class databaseConnector
     const PASSWORD = 'password';
     const DATABASE = 'databaseName';
     const IDP_TABLE_NAME = 'identityProvidersTableName';
+    const IDP_MAP_TABLE_NAME = 'identityProvidersMapTableName';
     const SP_TABLE_NAME = 'serviceProvidersTableName' ;
+    const SP_MAP_TABLE_NAME = 'serviceProvidersMapTableName';
     const ENCRYPTION = 'encryption';
     const SSL_CA = 'ssl_ca';
     const SSL_CERT = 'ssl_cert_path';
@@ -43,7 +47,9 @@ class databaseConnector
         $this->password = $conf->getString(self::PASSWORD);
         $this->databaseName = $conf->getString(self::DATABASE);
         $this->identityProvidersTableName = $conf->getString(self::IDP_TABLE_NAME);
+        $this->identityProvidersMapTableName = $conf->getString(self::IDP_MAP_TABLE_NAME);
         $this->serviceProvidersTableName = $conf->getString(self::SP_TABLE_NAME);
+        $this->serviceProvidersMapTableName = $conf->getString(self::SP_MAP_TABLE_NAME);
         $this->encryption = $conf->getBoolean(self::ENCRYPTION);
         $this->sslCA = $conf->getString(self::SSL_CA);
         $this->sslCert = $conf->getString(self::SSL_CERT);
@@ -80,11 +86,20 @@ class databaseConnector
 
     }
 
+    public function getIdentityProvidersMapTableName()
+    {
+    	return $this->identityProvidersMapTableName;
+    }
+
     public function getServiceProvidersTableName()
     {
         return $this->serviceProvidersTableName;
 
     }
 
+	public function getServiceProvidersMapTableName()
+	{
+		return $this->serviceProvidersMapTableName;
+	}
 
 }

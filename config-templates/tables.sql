@@ -1,4 +1,4 @@
-#Statistics for IdPs
+--Statistics for IdPs
 CREATE TABLE identityProviders (
 	year INT NOT NULL,
 	month INT NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE identityProviders (
 	PRIMARY KEY (year, month, day, sourceIdp)
 );
 
-#Statistics for services
+--Statistics for services
 CREATE TABLE serviceProviders(
 	year INT NOT NULL,
 	month INT NOT NULL,
@@ -24,4 +24,18 @@ CREATE TABLE serviceProviders(
 	INDEX (year,month),
 	INDEX (year,month,day),
 	PRIMARY KEY (year, month, day, service)
+);
+
+--Tables for mapping identifier to name
+CREATE TABLE identityProvidersMap(
+	entityId VARCHAR(255) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	PRIMARY KEY (entityId)
+);
+
+DROP TABLE serviceProvidersMap;
+CREATE TABLE serviceProvidersMap(
+	identifier VARCHAR(255) NOT NULL,
+	name VARCHAR(255) NOT NULL,
+	PRIMARY KEY (identifier)
 );

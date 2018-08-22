@@ -13,24 +13,46 @@ class DatabaseCommand
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
         $identityProvidersTableName = $databaseConnector->getIdentityProvidersTableName();
+        $identityProvidersMapTableName = $databaseConnector->getIdentityProvidersMapTableName();
         $serviceProvidersTableName = $databaseConnector->getServiceProvidersTableName();
-        $sourceIdp = $request['Attributes']['sourceIdPName'][0];
-        $service = $request['Destination']['name']['en'];
+        $serviceProvidersMapTableName = $databaseConnector->getServiceProvidersMapTableName();
+        $idpEntityID = $request['saml:sp:IdP'];
+        $idpName = $request['Attributes']['sourceIdPName'][0];
+        $spEntityId = $request['Destination']['entityid'];
+        $spName = $request['Destination']['name']['en'];
         $year = $date->format('Y');
         $month = $date->format('m');
         $day = $date->format('d');
 
-        $stmt = $conn->prepare("INSERT INTO ".$identityProvidersTableName."(year, month, day, sourceIdp, count) VALUES (?, ?, ?, ?, '1') ON DUPLICATE KEY UPDATE count = count + 1");
-        $stmt->bind_param("iiis", $year, $month, $day, $sourceIdp);
-        if ($stmt->execute() === FALSE) {
-            SimpleSAML\Logger::error("The login log wasn't inserted into the database.");
+        if (is_null($idpEntityID) || empty($idpEntityID) || is_null($spEntityId) || empty($spEntityId)) {
+            SimpleSAML\Logger::error("Some from attribute: 'idpEntityId', 'idpName', 'spEntityId' and 'spName' is null or empty and login log wasn't inserted into the database.");
+        } else {
+            $stmt = $conn->prepare("INSERT INTO ".$identityProvidersTableName."(year, month, day, sourceIdp, count) VALUES (?, ?, ?, ?, '1') ON DUPLICATE KEY UPDATE count = count + 1");
+            $stmt->bind_param("iiis", $year, $month, $day, $idpEntityID);
+            if ($stmt->execute() === FALSE) {
+                SimpleSAML\Logger::error("The login log wasn't inserted into table: " . $identityProvidersTableName . ".");
+            }
+
+            $stmt = $conn->prepare("INSERT INTO ".$serviceProvidersTableName."(year, month, day, service, count) VALUES (?, ?, ?, ?, '1') ON DUPLICATE KEY UPDATE count = count + 1");
+            $stmt->bind_param("iiis", $year, $month, $day, $spEntityId);
+            if ($stmt->execute() === FALSE) {
+                SimpleSAML\Logger::error("The login log wasn't inserted into into table: " . $serviceProvidersTableName . ".");
+            }
+
+            if (is_null($idpName) || empty($idpName)) {
+	            $stmt->prepare("INSERT INTO " . $identityProvidersMapTableName . "(entityId, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = ?");
+	            $stmt->bind_param("sss", $idpEntityID, $idpName, $idpName);
+	            $stmt->execute();
+            }
+
+            if (is_null($spName) || empty($spName)) {
+	            $stmt->prepare("INSERT INTO " . $serviceProvidersMapTableName . "(identifier, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = ?");
+	            $stmt->bind_param("sss", $spEntityId, $spName, $spName);
+	            $stmt->execute();
+            }
         }
 
-        $stmt = $conn->prepare("INSERT INTO ".$serviceProvidersTableName."(year, month, day, service, count) VALUES (?, ?, ?, ?, '1') ON DUPLICATE KEY UPDATE count = count + 1");
-        $stmt->bind_param("iiis", $year, $month, $day, $service);
-        if ($stmt->execute() === FALSE) {
-            SimpleSAML\Logger::error("The login log wasn't inserted into the database.");
-        }
+        SimpleSAML\Logger::error("The login log was successfully stored in database");
 
         $conn->close();
     }
@@ -56,12 +78,13 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getIdentityProvidersTableName();
-        $stmt = $conn->prepare("SELECT year, month, sourceIdp, SUM(count) AS count FROM ".$table_name. " GROUP BY year, month, sourceIdp HAVING sourceIdp != '' ORDER BY year DESC, month DESC, count DESC");
+        $identityProvidersTableName = $databaseConnector->getIdentityProvidersTableName();
+        $identityProvidersMapTableName = $databaseConnector->getIdentityProvidersMapTableName();
+        $stmt = $conn->prepare("SELECT year, month, IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId GROUP BY year, month, sourceIdp HAVING sourceIdp != '' ORDER BY year DESC, month DESC, count DESC");
         $stmt->execute();
         $result = $stmt->get_result();
         while($row = $result->fetch_assoc()) {
-            echo "[new Date(".$row["year"].",".($row["month"] - 1 )."),'".$row["sourceIdp"]."', {v:".$row["count"]."}],";
+            echo "[new Date(".$row["year"].",".($row["month"] - 1 )."),'".$row["idPName"]."', {v:".$row["count"]."}],";
         }
         $conn->close();
     }
@@ -71,12 +94,13 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getServiceProvidersTableName();
-        $stmt = $conn->prepare("SELECT year, month, service, SUM(count) AS count FROM ".$table_name." GROUP BY year DESC, month DESC, service HAVING service != '' ORDER BY year DESC, month DESC, count DESC");
+        $serviceProvidersTableName = $databaseConnector->getServiceProvidersTableName();
+        $serviceProvidersMapTableName = $databaseConnector->getServiceProvidersMapTableName();
+        $stmt = $conn->prepare("SELECT year, month, IFNULL(name,service) AS spName, SUM(count) AS count FROM ".$serviceProvidersTableName." LEFT OUTER JOIN " . $serviceProvidersMapTableName . " ON service = identifier GROUP BY year DESC, month DESC, service HAVING service != '' ORDER BY year DESC, month DESC, count DESC");
         $stmt->execute();
         $result = $stmt->get_result();
         while($row = $result->fetch_assoc()) {
-            echo "[new Date(".$row["year"].",".($row["month"] - 1 )."),'".$row["service"]."', {v:".$row["count"]."}],";        }
+            echo "[new Date(".$row["year"].",".($row["month"] - 1 )."),'".$row["spName"]."', {v:".$row["count"]."}],";        }
         $conn->close();
     }
 
@@ -128,12 +152,13 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getServiceProvidersTableName();
-        $stmt = $conn->prepare("SELECT service, SUM(count) AS count FROM ".$table_name." GROUP BY service HAVING service != ''");
+        $serviceProvidersTableName = $databaseConnector->getServiceProvidersTableName();
+        $serviceProvidersMapTableName = $databaseConnector->getServiceProvidersMapTableName();
+        $stmt = $conn->prepare("SELECT IFNULL(name,service) AS spName, SUM(count) AS count FROM ".$serviceProvidersTableName." LEFT OUTER JOIN " . $serviceProvidersMapTableName . " ON service = identifier GROUP BY service HAVING service != ''");
         $stmt->execute();
         $result = $stmt->get_result();
         while($row = $result->fetch_assoc()) {
-            echo "['".$row["service"]."', ".$row["count"]."],";
+            echo "['".$row["spName"]."', ".$row["count"]."],";
         }
         $conn->close();
     }
@@ -143,12 +168,13 @@ class DatabaseCommand
         $databaseConnector = new DatabaseConnector();
         $conn = $databaseConnector->getConnection();
         assert($conn != NULL);
-        $table_name = $databaseConnector->getIdentityProvidersTableName();
-        $stmt = $conn->prepare("SELECT sourceIdp, SUM(count) AS count FROM ".$table_name." GROUP BY sourceIdp HAVING sourceIdp != ''");
+        $identityProvidersTableName = $databaseConnector->getIdentityProvidersTableName();
+        $identityProvidersMapTableName = $databaseConnector->getIdentityProvidersMapTableName();
+        $stmt = $conn->prepare("SELECT IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId GROUP BY sourceIdp HAVING sourceIdp != ''");
         $stmt->execute();
         $result = $stmt->get_result();
         while($row = $result->fetch_assoc()) {
-            echo "['".$row["sourceIdp"]."', ".$row["count"]."],";
+            echo "['".$row["idPName"]."', ".$row["count"]."],";
         }
         $conn->close();
     }

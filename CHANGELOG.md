@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Added]
+- Added mapping tables for mapping identifier to name
+
+[Changed]
+- Storing entityIds instead of SpName/IdPName. 
 
 ## [v1.2.1]
 [Fixed]
