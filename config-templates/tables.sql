@@ -33,7 +33,7 @@ CREATE TABLE identityProvidersMap(
 	PRIMARY KEY (entityId)
 );
 
-DROP TABLE serviceProvidersMap;
+DROP TABLE serviceProvidersMap IF EXISTS;
 CREATE TABLE serviceProvidersMap(
 	identifier VARCHAR(255) NOT NULL,
 	name VARCHAR(255) NOT NULL,
