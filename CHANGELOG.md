@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v1.3.0]
 [Added]
 - Added mapping tables for mapping identifier to name
 
@@ -37,6 +39,7 @@ All notable changes to this project will be documented in this file.
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/master
+[v1.3.0]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/v1.3.0
 [v1.2.1]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/v1.2.1
 [v1.2.0]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/v1.2.0
 [v1.1.0]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/v1.1.0
