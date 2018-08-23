@@ -18,11 +18,11 @@ $(document).ready(function() {
 $this->includeAtTemplateBase('includes/header.php');
 ?>
 <div id="tabdiv">
-    <ul class="tabset_tabs" width="100px">
-        <li><a href='summary.php'><?php echo $this->t('{proxystatistics:Proxystatistics:summary}'); ?></a></li>
-        <li><a href='graphs.php'><?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_graphs}'); ?></a></li>
-        <li><a href='tables.php'><?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_tables}'); ?></a></li>
-    </ul>
+	<ul class="tabset_tabs" width="100px">
+		<li><a href='summary.php'><?php echo $this->t('{proxystatistics:Proxystatistics:summary}'); ?></a></li>
+		<li><a href='graphs.php'><?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_graphs}'); ?></a></li>
+		<li><a href='tables.php'><?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_tables}'); ?></a></li>
+	</ul>
 
 </div>
 

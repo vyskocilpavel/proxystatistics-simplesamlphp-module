@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 [Changed]
 - Storing entityIds instead of SpName/IdPName. 
 
+[Fixed]
+- Used only tabs for indentations
+
 ## [v1.2.1]
 [Fixed]
 - Fixed the problem with getting utf8 chars from database

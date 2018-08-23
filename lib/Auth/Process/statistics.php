@@ -23,8 +23,8 @@ class sspmod_proxystatistics_Auth_Process_statistics extends SimpleSAML_Auth_Pro
 
 	public function process(&$request)
 	{
-	    $dateTime = new DateTime();
-        DatabaseCommand::insertLogin($request, $dateTime);
+		$dateTime = new DateTime();
+		DatabaseCommand::insertLogin($request, $dateTime);
 	}
 
 }
