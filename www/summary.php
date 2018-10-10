@@ -7,6 +7,7 @@ $config = SimpleSAML_Configuration::getInstance();
 $session = SimpleSAML_Session::getSessionFromRequest();
 
 $t = new SimpleSAML_XHTML_Template($config, 'proxystatistics:summary-tpl.php');
+$t->data['lastDays'] = $_GET['lastDays'];
 $t->show();
 
 

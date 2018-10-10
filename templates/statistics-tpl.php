@@ -15,18 +15,32 @@ $(document).ready(function() {
 	$("#tabdiv").tabs();
 });
 </script>';
-$this->includeAtTemplateBase('includes/header.php');
-?>
-<div id="tabdiv">
-	<ul class="tabset_tabs" width="100px">
-		<li><a href='summary.php'><?php echo $this->t('{proxystatistics:Proxystatistics:summary}'); ?></a></li>
-		<li><a href='graphs.php'><?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_graphs}'); ?></a></li>
-		<li><a href='tables.php'><?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_tables}'); ?></a></li>
-	</ul>
 
+$this->includeAtTemplateBase('includes/header.php');
+
+if (!isset($_POST['lastDays'])) {
+	$_POST['lastDays'] = 0;
+}
+
+if (!isset($_POST['tab'])) {
+	$_POST['tab'] = 1;
+}
+?>
+
+<div id="tabdiv">
+    <ul class="tabset_tabs" width="100px">
+        <li><a id="tab-1" href='<?php echo "summary.php?lastDays=" . $_POST['lastDays'];?>'><?php echo $this->t('{proxystatistics:Proxystatistics:summary}'); ?></a></li>
+        <li><a id="tab-2" href='<?php echo "identityProviders.php?lastDays=" . $_POST['lastDays'];?>'><?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_idpsDetail}'); ?></a></li>
+        <li><a id="tab-3" href='<?php echo "serviceProviders.php?lastDays=" . $_POST['lastDays'];?>'><?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_spsDetail}'); ?></a></li>
+    </ul>
 </div>
+
+<script>
+    window.onload = function() {
+		<?php echo "$('#tab-" . $_POST['tab'] . "').click();"; ?>
+    }
+</script>
 
 <?php
 $this->includeAtTemplateBase('includes/footer.php');
-
 ?>

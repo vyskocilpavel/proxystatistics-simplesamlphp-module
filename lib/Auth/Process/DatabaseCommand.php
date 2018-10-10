@@ -57,13 +57,17 @@ class DatabaseCommand
 		$conn->close();
 	}
 
-	public static function getLoginCountPerDay()
+	public static function getLoginCountPerDay($days)
 	{
 		$databaseConnector = new DatabaseConnector();
 		$conn = $databaseConnector->getConnection();
 		assert($conn != NULL);
 		$table_name = $databaseConnector->getIdentityProvidersTableName();
-		$stmt = $conn->prepare("SELECT year, month, day, SUM(count) AS count FROM ".$table_name." GROUP BY year DESC,month DESC,day DESC");
+		if($days == 0) {	// 0 = all time
+			$stmt = $conn->prepare("SELECT year, month, day, SUM(count) AS count FROM ".$table_name." GROUP BY year DESC,month DESC,day DESC");
+		} else {
+			$stmt = $conn->prepare("SELECT year, month, day, SUM(count) AS count FROM ".$table_name." WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) BETWEEN CURDATE() - INTERVAL ".$days." DAY AND CURDATE() GROUP BY year DESC,month DESC,day DESC");
+		}
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while($row = $result->fetch_assoc()) {
@@ -148,14 +152,18 @@ class DatabaseCommand
 	}
 
 
-	public static function getAccessCountPerService()
+	public static function getAccessCountPerService($days)
 	{
 		$databaseConnector = new DatabaseConnector();
 		$conn = $databaseConnector->getConnection();
 		assert($conn != NULL);
 		$serviceProvidersTableName = $databaseConnector->getServiceProvidersTableName();
 		$serviceProvidersMapTableName = $databaseConnector->getServiceProvidersMapTableName();
-		$stmt = $conn->prepare("SELECT IFNULL(name,service) AS spName, SUM(count) AS count FROM ".$serviceProvidersTableName." LEFT OUTER JOIN " . $serviceProvidersMapTableName . " ON service = identifier GROUP BY service HAVING service != ''");
+		if($days == 0) {	// 0 = all time
+			$stmt = $conn->prepare("SELECT IFNULL(name,service) AS spName, SUM(count) AS count FROM " . $serviceProvidersTableName . " LEFT OUTER JOIN " . $serviceProvidersMapTableName . " ON service = identifier GROUP BY service HAVING service != ''");
+		} else {
+			$stmt = $conn->prepare("SELECT year, month, day, IFNULL(name,service) AS spName, SUM(count) AS count FROM " . $serviceProvidersTableName . " LEFT OUTER JOIN " . $serviceProvidersMapTableName . "  ON service = identifier WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) BETWEEN CURDATE() - INTERVAL ".$days." DAY AND CURDATE() GROUP BY service HAVING service != ''");
+		}
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while($row = $result->fetch_assoc()) {
@@ -164,14 +172,18 @@ class DatabaseCommand
 		$conn->close();
 	}
 
-	public static function getLoginCountPerIdp()
+	public static function getLoginCountPerIdp($days)
 	{
 		$databaseConnector = new DatabaseConnector();
 		$conn = $databaseConnector->getConnection();
 		assert($conn != NULL);
 		$identityProvidersTableName = $databaseConnector->getIdentityProvidersTableName();
 		$identityProvidersMapTableName = $databaseConnector->getIdentityProvidersMapTableName();
-		$stmt = $conn->prepare("SELECT IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId GROUP BY sourceIdp HAVING sourceIdp != ''");
+		if($days == 0) {	// 0 = all time
+			$stmt = $conn->prepare("SELECT IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId GROUP BY sourceIdp HAVING sourceIdp != ''");
+		} else {
+			$stmt = $conn->prepare("SELECT year, month, day, IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) BETWEEN CURDATE() - INTERVAL ".$days." DAY AND CURDATE() GROUP BY sourceIdp HAVING sourceIdp != ''");
+		}
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while($row = $result->fetch_assoc()) {

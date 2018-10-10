@@ -3,13 +3,33 @@
     "en": "Summary",
     "cs": "Shrnutí"
   },
-  "templates/statistics-tpl_graphs": {
-    "en": "Graphs",
-    "cs": "Grafy"
+  "templates/statistics-tpl_idpsDetail": {
+    "en": "Identity providers detail",
+    "cs": "Detail poskytovatelů identity"
   },
-  "templates/statistics-tpl_tables": {
-    "en": "Tables",
-    "cs": "Tabulky"
+  "templates/statistics-tpl_spsDetail": {
+    "en": "Service providers detail",
+    "cs": "Detail služeb"
+  },
+  "templates_time_range": {
+    "en": "Select the time range:",
+    "cs": "Vyberte časový interval:"
+  },
+  "templates/statistics-tpl_all": {
+    "en": "All",
+    "cs": "Vše"
+  },
+  "templates/statistics-tpl_week": {
+    "en": "Last 7 days",
+    "cs": "Posledních 7 dnů"
+  },
+  "templates/statistics-tpl_month": {
+    "en": "Last 30 days",
+    "cs": "Posledních 30 dnů"
+  },
+  "templates/statistics-tpl_year": {
+    "en": "Last year",
+    "cs": "Poslední rok"
   },
   "templates/summary_overall_logins": {
     "en": "Overall number of logins",
