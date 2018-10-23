@@ -8,6 +8,11 @@ All notable changes to this project will be documented in this file.
 [Changed]
 - DB commands work with apostrophes in IdP/SP names
 - New visual form of the site
+- Draw tables without month
+
+[Fixed]
+- Draws tables data by selected time range
+
 
 ## [v1.3.0]
 [Added]

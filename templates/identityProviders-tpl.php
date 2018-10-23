@@ -32,10 +32,10 @@ $lastDays = $this->data['lastDays'];
 
     function drawIdpsTable() {
         var data = new google.visualization.DataTable();
-        data.addColumn('date', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_month}'); ?>');
+
         data.addColumn('string', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_identity_provider}'); ?>');
         data.addColumn('number', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/count}'); ?>');
-        data.addRows([<?php DatabaseCommand::getLoginCountPerDeyPerService()?>]);
+        data.addRows([<?php DatabaseCommand::getLoginCountPerIdp($lastDays)?>]);
 
         var table = new google.visualization.Table(document.getElementById('idpsTable'));
 

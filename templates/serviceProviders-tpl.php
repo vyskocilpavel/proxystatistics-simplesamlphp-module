@@ -33,10 +33,10 @@ $lastDays = $this->data['lastDays'];
 
     function drawSpsTable() {
         var data = new google.visualization.DataTable();
-        data.addColumn('date', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_month}'); ?>');
+        
         data.addColumn('string', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_service_provider}'); ?>');
         data.addColumn('number', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/count}'); ?>');
-        data.addRows([<?php DatabaseCommand::getAccessToServicesPerMonth()?>]);
+        data.addRows([<?php DatabaseCommand::getAccessCountPerService($lastDays)?>]);
 
         var table = new google.visualization.Table(document.getElementById('spsTable'));
 

@@ -160,9 +160,9 @@ class DatabaseCommand
 		$serviceProvidersTableName = $databaseConnector->getServiceProvidersTableName();
 		$serviceProvidersMapTableName = $databaseConnector->getServiceProvidersMapTableName();
 		if($days == 0) {	// 0 = all time
-			$stmt = $conn->prepare("SELECT IFNULL(name,service) AS spName, SUM(count) AS count FROM " . $serviceProvidersTableName . " LEFT OUTER JOIN " . $serviceProvidersMapTableName . " ON service = identifier GROUP BY service HAVING service != ''");
+			$stmt = $conn->prepare("SELECT IFNULL(name,service) AS spName, SUM(count) AS count FROM " . $serviceProvidersTableName . " LEFT OUTER JOIN " . $serviceProvidersMapTableName . " ON service = identifier GROUP BY service HAVING service != ''  ORDER BY count DESC");
 		} else {
-			$stmt = $conn->prepare("SELECT year, month, day, IFNULL(name,service) AS spName, SUM(count) AS count FROM " . $serviceProvidersTableName . " LEFT OUTER JOIN " . $serviceProvidersMapTableName . "  ON service = identifier WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) BETWEEN CURDATE() - INTERVAL ".$days." DAY AND CURDATE() GROUP BY service HAVING service != ''");
+			$stmt = $conn->prepare("SELECT year, month, day, IFNULL(name,service) AS spName, SUM(count) AS count FROM " . $serviceProvidersTableName . " LEFT OUTER JOIN " . $serviceProvidersMapTableName . "  ON service = identifier WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) BETWEEN CURDATE() - INTERVAL ".$days." DAY AND CURDATE() GROUP BY service HAVING service != ''  ORDER BY count DESC");
 		}
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -180,9 +180,9 @@ class DatabaseCommand
 		$identityProvidersTableName = $databaseConnector->getIdentityProvidersTableName();
 		$identityProvidersMapTableName = $databaseConnector->getIdentityProvidersMapTableName();
 		if($days == 0) {	// 0 = all time
-			$stmt = $conn->prepare("SELECT IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId GROUP BY sourceIdp HAVING sourceIdp != ''");
+			$stmt = $conn->prepare("SELECT IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId GROUP BY sourceIdp HAVING sourceIdp != '' ORDER BY count DESC");
 		} else {
-			$stmt = $conn->prepare("SELECT year, month, day, IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) BETWEEN CURDATE() - INTERVAL ".$days." DAY AND CURDATE() GROUP BY sourceIdp HAVING sourceIdp != ''");
+			$stmt = $conn->prepare("SELECT year, month, day, IFNULL(name,sourceIdp) AS idPName, SUM(count) AS count FROM ".$identityProvidersTableName. " LEFT OUTER JOIN " . $identityProvidersMapTableName . " ON sourceIdp = entityId WHERE CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) BETWEEN CURDATE() - INTERVAL ".$days." DAY AND CURDATE() GROUP BY sourceIdp HAVING sourceIdp != '' ORDER BY count DESC");
 		}
 		$stmt->execute();
 		$result = $stmt->get_result();
