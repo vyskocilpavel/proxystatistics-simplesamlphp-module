@@ -1,20 +1,48 @@
 #content {
-    max-width: 960px;
+    max-width: 100%;
+    padding: 0 40px;
 }
 
 #content, #footer {
     padding: 0;
 }
 
-#tableOfAllLogin {
-    padding-left: 25%;
-}
-
-
-#summary {
-    padding-left: 10%;
+h2 {
+  padding: 0 40px;
 }
 
 table{
     text-align: center;
+}
+
+#idpsTable, #spsTable {
+    height: 450px;
+}
+
+#idpsChart, #idpsChartDetail, #spsChart, #spsChartDetail {
+    height: 450px;
+}
+
+#loginsDashboard {
+    height: 300px;
+}
+
+#line_div {
+    height: 260px;
+}
+
+#control_div {
+    height: 40px;
+}
+
+#dateSelector label{
+    font-weight: normal;
+}
+
+.tabset_tabs {
+    padding-left: 20px;
+}
+
+.timeRange {
+    padding-left: 40px;
 }

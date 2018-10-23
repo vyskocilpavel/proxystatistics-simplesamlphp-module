@@ -2,8 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Added]
+- Possibility to change the time range of displayed data
+
 [Changed]
-- DB commands work for apostrophe in IdP/SP names
+- DB commands work with apostrophes in IdP/SP names
+- New visual form of the site
 
 ## [v1.3.0]
 [Added]
