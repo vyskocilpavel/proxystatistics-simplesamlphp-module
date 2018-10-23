@@ -14,7 +14,6 @@ $lastDays = $this->data['lastDays'];
 <script type="text/javascript">
     google.charts.load('current', {'packages':['corechart', 'controls', 'table']});
     google.charts.setOnLoadCallback(drawLoginsChart);
-    google.charts.setOnLoadCallback(drawLoginsTable);
 
     function drawLoginsChart() {
         var data = google.visualization.arrayToDataTable([
@@ -42,22 +41,7 @@ $lastDays = $this->data['lastDays'];
         dashboard.draw(data);
     }
 
-    function drawLoginsTable() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_date}'); ?>');
-        data.addColumn('number', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/count}'); ?>');
-        data.addRows([<?php DatabaseCommand::getLoginCountPerDay($lastDays)?>]);
-
-        var table = new google.visualization.Table(document.getElementById('loginsTable'));
-
-        var formatter = new google.visualization.DateFormat({pattern: "d  MMMM  yyyy"});
-        formatter.format(data, 0); // Apply formatter to second column
-
-        table.draw(data, {showRowNumber: false,});
-    }
-
     google.charts.setOnLoadCallback(drawIdpsChart);
-    google.charts.setOnLoadCallback(drawIdpsTable);
 
     function drawIdpsChart() {
         var data = google.visualization.arrayToDataTable([
@@ -76,23 +60,8 @@ $lastDays = $this->data['lastDays'];
         chart.draw(data, options);
     }
 
-    function drawIdpsTable() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_month}'); ?>');
-        data.addColumn('string', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_identity_provider}'); ?>');
-        data.addColumn('number', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/count}'); ?>');
-        data.addRows([<?php DatabaseCommand::getLoginCountPerDeyPerService()?>]);
-
-        var table = new google.visualization.Table(document.getElementById('idpsTable'));
-
-        var formatter = new google.visualization.DateFormat({pattern:"MMMM  yyyy"});
-        formatter.format(data, 0); // Apply formatter to second column
-
-        table.draw(data);
-    }
 
     google.charts.setOnLoadCallback(drawSpsChart);
-    google.charts.setOnLoadCallback(drawSpsTable);
 
     function drawSpsChart() {
         var data = google.visualization.arrayToDataTable([
@@ -111,20 +80,7 @@ $lastDays = $this->data['lastDays'];
         chart.draw(data, options);
     }
 
-    function drawSpsTable() {
-        var data = new google.visualization.DataTable();
-        data.addColumn('date', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_month}'); ?>');
-        data.addColumn('string', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_service_provider}'); ?>');
-        data.addColumn('number', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/count}'); ?>');
-        data.addRows([<?php DatabaseCommand::getAccessToServicesPerMonth()?>]);
 
-        var table = new google.visualization.Table(document.getElementById('spsTable'));
-
-        var formatter = new google.visualization.DateFormat({pattern:"MMMM  yyyy"});
-        formatter.format(data, 0); // Apply formatter to second column
-
-        table.draw(data);
-    }
 </script>
 </head>
 

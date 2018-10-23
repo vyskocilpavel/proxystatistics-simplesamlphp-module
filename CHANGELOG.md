@@ -13,6 +13,8 @@ All notable changes to this project will be documented in this file.
 [Fixed]
 - Draws tables data by selected time range
 
+[Removed]
+- Removed unused functions
 
 ## [v1.3.0]
 [Added]
