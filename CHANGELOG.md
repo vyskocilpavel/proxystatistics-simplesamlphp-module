@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Changed]
+- DB commands work for apostrophe in IdP/SP names
 
 ## [v1.3.0]
 [Added]

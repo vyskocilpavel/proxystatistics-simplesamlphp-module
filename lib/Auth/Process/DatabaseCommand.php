@@ -84,7 +84,7 @@ class DatabaseCommand
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while($row = $result->fetch_assoc()) {
-			echo "[new Date(".$row["year"].",".($row["month"] - 1 )."),'".$row["idPName"]."', {v:".$row["count"]."}],";
+			echo "[new Date(".$row["year"].",".($row["month"] - 1 )."),'".str_replace("'","\'",$row["idPName"])."', {v:".$row["count"]."}],";
 		}
 		$conn->close();
 	}
@@ -100,7 +100,8 @@ class DatabaseCommand
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while($row = $result->fetch_assoc()) {
-			echo "[new Date(".$row["year"].",".($row["month"] - 1 )."),'".$row["spName"]."', {v:".$row["count"]."}],";        }
+			echo "[new Date(".$row["year"].",".($row["month"] - 1 )."),'".str_replace("'","\'",$row["spName"])."', {v:".$row["count"]."}],";
+		}
 		$conn->close();
 	}
 
@@ -158,7 +159,7 @@ class DatabaseCommand
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while($row = $result->fetch_assoc()) {
-			echo "['".$row["spName"]."', ".$row["count"]."],";
+			echo "['" . str_replace("'", "\'", $row["spName"]) . "', " . $row["count"] . "],";
 		}
 		$conn->close();
 	}
@@ -174,7 +175,7 @@ class DatabaseCommand
 		$stmt->execute();
 		$result = $stmt->get_result();
 		while($row = $result->fetch_assoc()) {
-			echo "['".$row["idPName"]."', ".$row["count"]."],";
+			echo "['" . str_replace("'", "\'", $row["idPName"]) . "', " . $row["count"] . "],";
 		}
 		$conn->close();
 	}
