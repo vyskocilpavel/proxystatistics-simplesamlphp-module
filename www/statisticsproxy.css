@@ -15,6 +15,10 @@ table{
     text-align: center;
 }
 
+#wrap {
+    max-width: 100%;
+}
+
 #idpsTable, #spsTable {
     height: 450px;
 }

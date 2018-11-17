@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Fixed]
+- Statistics will be now full screen
 
 ## [v1.4.0]
 [Added]
