@@ -39,13 +39,13 @@ class DatabaseCommand
 				SimpleSAML\Logger::error("The login log wasn't inserted into into table: " . $serviceProvidersTableName . ".");
 			}
 
-			if (is_null($idpName) || empty($idpName)) {
+			if (!is_null($idpName) && !empty($idpName)) {
 				$stmt->prepare("INSERT INTO " . $identityProvidersMapTableName . "(entityId, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = ?");
 				$stmt->bind_param("sss", $idpEntityID, $idpName, $idpName);
 				$stmt->execute();
 			}
 
-			if (is_null($spName) || empty($spName)) {
+			if (!is_null($spName) && !empty($spName)) {
 				$stmt->prepare("INSERT INTO " . $serviceProvidersMapTableName . "(identifier, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = ?");
 				$stmt->bind_param("sss", $spEntityId, $spName, $spName);
 				$stmt->execute();
