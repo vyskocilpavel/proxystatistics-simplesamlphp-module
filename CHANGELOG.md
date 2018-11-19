@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Fixed]
 - Statistics will be now full screen
+- Fixed bad checks before insert translation to db
 
 ## [v1.4.0]
 [Added]
