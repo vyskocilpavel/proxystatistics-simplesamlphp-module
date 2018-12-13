@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Fixed]
+- set default value of lastDays and tab in index.php: no error logs when user open statistics for the first time
 
 ## [v1.4.1]
 [Fixed]
