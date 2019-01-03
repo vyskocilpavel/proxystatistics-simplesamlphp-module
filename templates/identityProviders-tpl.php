@@ -69,6 +69,9 @@ $lastDays = $this->data['lastDays'];
 </div>
 
 <h2><?php echo $this->t('{proxystatistics:Proxystatistics:templates/graphs_id_providers}'); ?></h2>
+<div class="legend">
+    <div><?php echo $this->t('{proxystatistics:Proxystatistics:templates/identityProviders_legend}'); ?></div>
+</div>
 <div class="row">
     <div class="col-md-8">
         <div id="idpsChartDetail" ></div>

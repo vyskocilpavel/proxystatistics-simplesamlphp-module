@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Added]
+- Added legends to charts
+- Instance name in header is taken from config file
+
 [Fixed]
 - set default value of lastDays and tab in index.php: no error logs when user open statistics for the first time
 

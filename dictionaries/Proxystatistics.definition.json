@@ -104,7 +104,27 @@
     "cs": "Služba"
   },
   "templates/statistics_header": {
-    "en": "SimpleSAMLphp Statistics",
-    "cs": "SimpleSAMLphp Statistiky"
+    "en": "AAI Statistics",
+    "cs": "AAI Statistiky"
+  },
+  "templates/identityProviders_legend": {
+    "en": "The chart and the table show number of logins from each identity provider in selected time range.",
+    "cs": "Graf s tabulkou ukazují počet přihlášení od každého poskytovatele identity ve zvoleném časovém rozmezí."
+  },
+  "templates/serviceProviders_legend": {
+    "en": "The chart and the table show number of logins to each service provider in selected time range. Only first access to the service is counted, following single sign-on accesses are not counted, because they are not going through the Proxy.",
+    "cs": "Graf s tabulkou ukazují přihlášení ke každé službě ve zvoleném časovém rozmezí. Počítá se pouze první přístup ke službě, protože další již nejdou přes Proxy."
+  },
+  "templates/summary_logins_info": {
+    "en": "The chart shows overall number of logins from identity providers for each day.",
+    "cs": "Graf zobrazuje počet přihlášení za každý den."
+  },
+  "templates/summary_idps_info": {
+    "en": "The chart shows number of logins from each identity provider in selected time range.",
+    "cs": "Graf zobrazuje počet přihlášení od každého poskytovatele identity ve zvoleném časovém rozmezí."
+  },
+  "templates/summary_sps_info": {
+    "en": "The chart shows number of logins to each service provider in selected time range. Only first access to the service is counted, following single sign-on accesses are not counted, because they are not going through the Proxy.",
+    "cs": "Graf zobrazuje počet přihlášení ke každé službě ve zvoleném časovém rozmezí. Počítá se pouze první přístup ke službě, následující přístupy neprocházejí přes Proxy."
   }
 }
