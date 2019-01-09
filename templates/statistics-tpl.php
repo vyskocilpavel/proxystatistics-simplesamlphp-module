@@ -4,7 +4,17 @@ include dirname(__DIR__)."/lib/Auth/Process/DatabaseCommand.php";
  * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
  * @author Dominik Baránek <0Baranek.dominik0@gmail.com>
  */
-$this->data['header'] = $this->t('{proxystatistics:Proxystatistics:templates/statistics_header}');
+const CONFIG_FILE_NAME = 'config.php';
+const INSTANCE_NAME = 'instance_name';
+
+$config = SimpleSAML_Configuration::getConfig(CONFIG_FILE_NAME);
+$instanceName = $config->getString(INSTANCE_NAME, null);
+if (!is_null($instanceName)) {
+    $this->data['header'] = $instanceName . ' ' . $this->t('{proxystatistics:Proxystatistics:templates/statistics_header}');
+} else {
+    $this->data['header'] = $this->t('{proxystatistics:Proxystatistics:templates/statistics_header}');
+    SimpleSAML\Logger::warning('Missing configuration: config.php - instance_name is not set.');
+}
 
 $this->data['jquery'] = array('core' => TRUE, 'ui' => TRUE, 'css' => TRUE);
 $this->data['head'] = '<link rel="stylesheet"  media="screen" type="text/css" href="' . SimpleSAML\Module::getModuleUrl('proxystatistics/statisticsproxy.css')  . '" />';

@@ -43,10 +43,23 @@ table{
     font-weight: normal;
 }
 
+#summaryIdp {
+    padding-bottom: 20px;
+}
+
 .tabset_tabs {
     padding-left: 20px;
 }
 
 .timeRange {
     padding-left: 40px;
+}
+
+.legend-logins {
+    padding-left: 40px;
+}
+
+.legend {
+    padding-left: 40px;
+    padding-bottom: 20px;
 }
