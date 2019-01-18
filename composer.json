@@ -1,7 +1,7 @@
 {
   "name": "cesnet/simplesamlphp-module-proxystatistics",
   "description": "A SimpleSAMLPHP module for statistics",
-  "version": "1.5.0-dev",
+  "version": "1.6.0-dev",
   "type": "simplesamlphp-module",
   "keywords": ["statistics","simplesamlphp"],
   "license": "BSD-2-Clause",
