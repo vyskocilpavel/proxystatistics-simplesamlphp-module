@@ -45,9 +45,15 @@ $lastDays = $this->data['lastDays'];
 
     function drawIdpsChart() {
         var data = google.visualization.arrayToDataTable([
-            ['sourceIdp', 'Count'],
+            ['sourceIdpName', 'sourceIdPEntityId',  'Count'],
 			<?php DatabaseCommand::getLoginCountPerIdp($lastDays)?>
         ]);
+
+        data.sort([{column: 2, desc: true}]);
+
+        var view = new google.visualization.DataView(data);
+
+        view.setColumns([0,2]);
 
         var options = {
             pieSliceText: 'value',
@@ -56,8 +62,17 @@ $lastDays = $this->data['lastDays'];
 
         var chart = new google.visualization.PieChart(document.getElementById('idpsChart'));
 
-        data.sort([{column: 1, desc: true}]);
-        chart.draw(data, options);
+        chart.draw(view, options);
+
+        google.visualization.events.addListener(chart, 'select', selectHandler);
+
+        function selectHandler() {
+            var selection = chart.getSelection();
+            if (selection.length) {
+                var entityId = data.getValue(selection[0].row, 1);
+                window.location.href = 'idpDetail.php?entityId=' + entityId;
+            }
+        }
     }
 
 
@@ -65,9 +80,15 @@ $lastDays = $this->data['lastDays'];
 
     function drawSpsChart() {
         var data = google.visualization.arrayToDataTable([
-            ['service', 'Count'],
+            ['service', 'serviceIdentifier', 'Count'],
 			<?php DatabaseCommand::getAccessCountPerService($lastDays)?>
         ]);
+
+        data.sort([{column: 2, desc: true}]);
+
+        var view = new google.visualization.DataView(data);
+
+        view.setColumns([0,2]);
 
         var options = {
             pieSliceText: 'value',
@@ -76,8 +97,18 @@ $lastDays = $this->data['lastDays'];
 
         var chart = new google.visualization.PieChart(document.getElementById('spsChart'));
 
-        data.sort([{column: 1, desc: true}]);
-        chart.draw(data, options);
+        chart.draw(view, options);
+
+        google.visualization.events.addListener(chart, 'select', selectHandler);
+
+        function selectHandler() {
+            var selection = chart.getSelection();
+            if (selection.length) {
+                var identifier = data.getValue(selection[0].row, 1);
+                window.location.href = 'spDetail.php?identifier=' + identifier;
+            }
+        }
+
     }
 
 
@@ -123,7 +154,7 @@ $lastDays = $this->data['lastDays'];
                 <?php echo $this->t('{proxystatistics:Proxystatistics:templates/summary_idps_info}'); ?>
             </div>
         </div>
-        <div id="idpsChart" ></div>
+        <div id="idpsChart" class="pieChart"></div>
     </div>
     <div class="col-md-6">
         <h2><?php echo $this->t('{proxystatistics:Proxystatistics:templates/graphs_service_providers}'); ?></h2>
@@ -132,7 +163,7 @@ $lastDays = $this->data['lastDays'];
                 <?php echo $this->t('{proxystatistics:Proxystatistics:templates/summary_sps_info}'); ?>
             </div>
         </div>
-        <div id="spsChart" ></div>
+        <div id="spsChart" class="pieChart"></div>
     </div>
 </div>
 </body>

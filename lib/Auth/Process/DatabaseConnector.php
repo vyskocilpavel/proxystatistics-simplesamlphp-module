@@ -10,9 +10,8 @@ class databaseConnector
 	private $username;
 	private $password;
 	private $databaseName;
-	private $identityProvidersTableName;
+	private $statisticsTableName;
 	private $identityProvidersMapTableName;
-	private $serviceProvidersTableName;
 	private $serviceProvidersMapTableName;
 	private $encryption;
 	private $sslCA;
@@ -26,9 +25,8 @@ class databaseConnector
 	const USER = 'userName';
 	const PASSWORD = 'password';
 	const DATABASE = 'databaseName';
-	const IDP_TABLE_NAME = 'identityProvidersTableName';
+	const STATS_TABLE_NAME = 'statisticsTableName';
 	const IDP_MAP_TABLE_NAME = 'identityProvidersMapTableName';
-	const SP_TABLE_NAME = 'serviceProvidersTableName' ;
 	const SP_MAP_TABLE_NAME = 'serviceProvidersMapTableName';
 	const ENCRYPTION = 'encryption';
 	const SSL_CA = 'ssl_ca';
@@ -46,9 +44,8 @@ class databaseConnector
 		$this->username = $conf->getString(self::USER);
 		$this->password = $conf->getString(self::PASSWORD);
 		$this->databaseName = $conf->getString(self::DATABASE);
-		$this->identityProvidersTableName = $conf->getString(self::IDP_TABLE_NAME);
+		$this->statisticsTableName = $conf->getString(self::STATS_TABLE_NAME);
 		$this->identityProvidersMapTableName = $conf->getString(self::IDP_MAP_TABLE_NAME);
-		$this->serviceProvidersTableName = $conf->getString(self::SP_TABLE_NAME);
 		$this->serviceProvidersMapTableName = $conf->getString(self::SP_MAP_TABLE_NAME);
 		$this->encryption = $conf->getBoolean(self::ENCRYPTION);
 		$this->sslCA = $conf->getString(self::SSL_CA);
@@ -80,21 +77,14 @@ class databaseConnector
 		return $conn;
 	}
 
-	public function getIdentityProvidersTableName()
+	public function getStatisticsTableName()
 	{
-		return $this->identityProvidersTableName;
-
+		return $this->statisticsTableName;
 	}
 
 	public function getIdentityProvidersMapTableName()
 	{
 		return $this->identityProvidersMapTableName;
-	}
-
-	public function getServiceProvidersTableName()
-	{
-		return $this->serviceProvidersTableName;
-
 	}
 
 	public function getServiceProvidersMapTableName()

@@ -44,14 +44,9 @@ $config = array(
 	'identityProvidersMapTableName' => 'identityProvidersMap',
 
 	/*
-	 * Fill the table name for serviceProviders
+	 * Fill the table name for statistics
 	 */
-	'serviceProvidersTableName' => 'serviceProviders',
-
-	/*
-	 * Fill the table name for serviceProviders
-	 */
-	'serviceProvidersMapTableName' => 'serviceProvidersMap',
+	'statisticsTableName' => 'statisticsTableName',
 
 	/*
 	 * Fill true, if you want to use encryption, false if not.

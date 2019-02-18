@@ -108,23 +108,75 @@
     "cs": "AAI Statistiky"
   },
   "templates/identityProviders_legend": {
-    "en": "The chart and the table show number of logins from each identity provider in selected time range.",
-    "cs": "Graf s tabulkou ukazují počet přihlášení od každého poskytovatele identity ve zvoleném časovém rozmezí."
+    "en": "The chart and the table show number of logins from each identity provider in selected time range. Click a specific identity provider to view detailed statistics for that identity provider.",
+    "cs": "Graf s tabulkou ukazují počet přihlášení od každého poskytovatele identity ve zvoleném časovém rozmezí. Kliknutím na konkrétního poskytovatele identit zobrazíte detailní statistiky pro daného poskytovatele identit."
   },
   "templates/serviceProviders_legend": {
-    "en": "The chart and the table show number of logins to each service provider in selected time range. Only first access to the service is counted, following single sign-on accesses are not counted, because they are not going through the Proxy.",
-    "cs": "Graf s tabulkou ukazují přihlášení ke každé službě ve zvoleném časovém rozmezí. Počítá se pouze první přístup ke službě, protože další již nejdou přes Proxy."
+    "en": "The chart and the table show number of logins to each service provider in selected time range. Only first access to the service is counted, following single sign-on accesses are not counted, because they are not going through the Proxy. Click a specific service to view detailed statistics for that service.",
+    "cs": "Graf s tabulkou ukazují přihlášení ke každé službě ve zvoleném časovém rozmezí. Počítá se pouze první přístup ke službě, protože další již nejdou přes Proxy. Kliknutím na konkrétní službu zobrazíte detailní statistiky pro danou službu."
   },
   "templates/summary_logins_info": {
     "en": "The chart shows overall number of logins from identity providers for each day.",
     "cs": "Graf zobrazuje počet přihlášení za každý den."
   },
   "templates/summary_idps_info": {
-    "en": "The chart shows number of logins from each identity provider in selected time range.",
-    "cs": "Graf zobrazuje počet přihlášení od každého poskytovatele identity ve zvoleném časovém rozmezí."
+    "en": "The chart shows number of logins from each identity provider in selected time range. Click a specific identity provider to view detailed statistics for that identity provider.",
+    "cs": "Graf zobrazuje počet přihlášení od každého poskytovatele identity ve zvoleném časovém rozmezí. Kliknutím na konkrétního poskytovatele identit zobrazíte detailní statistiky pro daného poskytovatele identit."
   },
   "templates/summary_sps_info": {
-    "en": "The chart shows number of logins to each service provider in selected time range. Only first access to the service is counted, following single sign-on accesses are not counted, because they are not going through the Proxy.",
-    "cs": "Graf zobrazuje počet přihlášení ke každé službě ve zvoleném časovém rozmezí. Počítá se pouze první přístup ke službě, následující přístupy neprocházejí přes Proxy."
+    "en": "The chart shows number of logins to each service provider in selected time range. Only first access to the service is counted, following single sign-on accesses are not counted, because they are not going through the Proxy. Click a specific service to view detailed statistics for that service.",
+    "cs": "Graf zobrazuje počet přihlášení ke každé službě ve zvoleném časovém rozmezí. Počítá se pouze první přístup ke službě, následující přístupy neprocházejí přes Proxy. Kliknutím na konkrétní službu zobrazíte detailní statistiky pro danou službu."
+  },
+  "templates/spDetail_header_name": {
+    "en": "Detail statistics for Service Provider: ",
+    "cs": "Podrobné statistiky služby: "
+  },
+  "templates/spDetail_header_identifier": {
+    "en": "Detail statistics for Service Provider with identifier: ",
+    "cs": "Podrobné statistiky služby s identifikátorem: "
+  },
+  "templates/spDetail_dashboard_header": {
+    "en": "Number of logins",
+    "cs": "Počet přihlášení"
+  },
+  "templates/spDetail_dashboard_legend": {
+    "en": "The chart shows number of logins to this service for each day.",
+    "cs": "Graf zobrazuje počet přihlášení k dané službě za každý den."
+  },
+  "templates/spDetail_graph_header": {
+    "en": "Used identity providers",
+    "cs": "Použití poskytovatelé identit"
+  },
+  "templates/spDetail_graph_legend": {
+    "en": "The chart and the table shows used identity providers to login to this service provider in selected time range. Only first access to the service is counted, following single sign-on accesses are not counted, because they are not going through the Proxy.",
+    "cs": "Graf s tabulkou ukazují použité poskytovatele identit pro přihlášení k této službě ve zvoleném časovém rozmezí. Počítá se pouze první přístup ke službě, protože další již nejdou přes Proxy."
+  },
+  "templates/idpDetail_header_name": {
+    "en": "Detail usage of Identity Provider: ",
+    "cs": "Detail využití poskytovatele identit: "
+  },
+  "templates/idpDetail_header_entityId": {
+    "en": "Detail usage for Service Provider with entityId: ",
+    "cs": "Detail využití poskytovatele identit s entityId: "
+  },
+  "templates/idpDetail_dashboard_header": {
+    "en": "Number of usage of identity provider",
+    "cs": "Počet přístupů skrze poskytovatele identit"
+  },
+  "templates/idpDetail_dashboard_legend": {
+    "en": "The chart shows number of logins using this identity provider for each day.",
+    "cs": "Graf zobrazuje počet přihlášení tímto poskytovatelem identit za každý den."
+  },
+  "templates/idpDetail_graph_header": {
+    "en": "Accessed service providers",
+    "cs": "Služby, ke kterým bylo přistupováno"
+  },
+  "templates/idpDetail_graph_legend": {
+    "en": "The chart and the table shows accessed service providers by this identity provider in selected time range. Only first access to the service is counted, following single sign-on accesses are not counted, because they are not going through the Proxy.",
+    "cs": "Graf s tabulkou ukazují služby, ke kterým bylo přistoupeno daným poskytovatelem identit ve zvoleném časovém rozmezí. Počítá se pouze první přístup ke službě, protože další již nejdou přes Proxy."
+  },
+  "btn_label_back_to_stats": {
+    "en": "Back to overall statistics",
+    "cs": "Zpět na přehled celkových statistik"
   }
 }

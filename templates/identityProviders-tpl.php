@@ -15,9 +15,15 @@ $lastDays = $this->data['lastDays'];
 
     function drawIdpsChart() {
         var data = google.visualization.arrayToDataTable([
-            ['sourceIdp', 'Count'],
+            ['sourceIdp', 'sourceIdPEntityId', 'Count'],
 			<?php DatabaseCommand::getLoginCountPerIdp($lastDays)?>
         ]);
+
+        data.sort([{column: 2, desc: true}]);
+
+        var view = new google.visualization.DataView(data);
+
+        view.setColumns([0,2]);
 
         var options = {
             pieSliceText: 'value',
@@ -25,24 +31,46 @@ $lastDays = $this->data['lastDays'];
         };
 
         var chart = new google.visualization.PieChart(document.getElementById('idpsChartDetail'));
+        chart.draw(view, options);
 
-        data.sort([{column: 1, desc: true}]);
-        chart.draw(data, options);
+        google.visualization.events.addListener(chart, 'select', selectHandler);
+
+        function selectHandler() {
+            var selection = chart.getSelection();
+            if (selection.length) {
+                var entityId = data.getValue(selection[0].row, 1);
+                window.location.href = 'idpDetail.php?entityId=' + entityId;
+            }
+        }
     }
 
     function drawIdpsTable() {
         var data = new google.visualization.DataTable();
 
         data.addColumn('string', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_identity_provider}'); ?>');
+        data.addColumn('string', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/tables_identity_provider}'); ?>');
         data.addColumn('number', '<?php echo $this->t('{proxystatistics:Proxystatistics:templates/count}'); ?>');
         data.addRows([<?php DatabaseCommand::getLoginCountPerIdp($lastDays)?>]);
 
+        data.sort([{column: 2, desc: true}]);
+
+        var view = new google.visualization.DataView(data);
+
+        view.setColumns([0,2]);
+
         var table = new google.visualization.Table(document.getElementById('idpsTable'));
 
-        var formatter = new google.visualization.DateFormat({pattern:"MMMM  yyyy"});
-        formatter.format(data, 0); // Apply formatter to second column
+        table.draw(view);
 
-        table.draw(data);
+        google.visualization.events.addListener(table, 'select', selectHandler);
+
+        function selectHandler() {
+            var selection = table.getSelection();
+            if (selection.length) {
+                var entityId = data.getValue(selection[0].row, 1);
+                window.location.href = 'idpDetail.php?entityId=' + entityId;
+            }
+        }
     }
 
 </script>
@@ -74,10 +102,10 @@ $lastDays = $this->data['lastDays'];
 </div>
 <div class="row">
     <div class="col-md-8">
-        <div id="idpsChartDetail" ></div>
+        <div id="idpsChartDetail" class="pieChart"></div>
     </div>
     <div class="col-md-4">
-        <div id="idpsTable" ></div>
+        <div id="idpsTable" class="table"></div>
     </div>
 </div>
 </body>
