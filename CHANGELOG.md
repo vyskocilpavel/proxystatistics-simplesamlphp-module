@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 [Added]
 - Added details with statistics for individually SPs and IdPs
+- Added script for migrate data to new version of database structure
 
 ## [v1.5.0]
 [Added]
