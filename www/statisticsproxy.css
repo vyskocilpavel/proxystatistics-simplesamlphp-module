@@ -1,4 +1,4 @@
-#content {
+#content, #languagebar, #header {
     max-width: 100%;
     padding: 0 40px;
 }
@@ -7,7 +7,7 @@
     padding: 0;
 }
 
-h2 {
+h1, h2, h3 {
   padding: 0 40px;
 }
 
@@ -17,14 +17,6 @@ table{
 
 #wrap {
     max-width: 100%;
-}
-
-#idpsTable, #spsTable {
-    height: 450px;
-}
-
-#idpsChart, #idpsChartDetail, #spsChart, #spsChartDetail {
-    height: 450px;
 }
 
 #loginsDashboard {
@@ -62,4 +54,16 @@ table{
 .legend {
     padding-left: 40px;
     padding-bottom: 20px;
+}
+
+.go-to-stats-btn {
+    padding-left: 40px;
+}
+
+.table {
+    height: 450px;
+}
+
+.pieChart {
+    height: 450px;
 }

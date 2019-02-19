@@ -6,17 +6,13 @@
 $config = SimpleSAML_Configuration::getInstance();
 $session = SimpleSAML_Session::getSessionFromRequest();
 
-$t = new SimpleSAML_XHTML_Template($config, 'proxystatistics:statistics-tpl.php');
+$t = new SimpleSAML_XHTML_Template($config, 'proxystatistics:idpDetail-tpl.php');
+
 if(!isset($_POST['lastDays'])) {
-	$_POST['lastDays'] = 0;
-}
-if(!isset($_POST['tab'])) {
-	$_POST['tab'] = 1;
+    $_POST['lastDays'] = 0;
 }
 $t->data['lastDays'] = $_POST['lastDays'];
-$t->data['tab'] = $_POST['tab'];
+$t->data['entityId'] = $_GET['entityId'];
 $t->show();
-
-
 
 ?>
