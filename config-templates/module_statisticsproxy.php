@@ -33,20 +33,20 @@ $config = array(
 	 */
 	'databaseName' => 'STATS',
 
-	/*
-	 * Fill the table name for identityProviders
-	 */
-	'identityProvidersTableName' => 'identityProviders',
+    /*
+     * Fill the table name for statistics
+     */
+    'statisticsTableName' => 'statisticsTableName',
 
 	/*
 	 * Fill the table name for identityProvidersMap
 	 */
 	'identityProvidersMapTableName' => 'identityProvidersMap',
 
-	/*
-	 * Fill the table name for statistics
-	 */
-	'statisticsTableName' => 'statisticsTableName',
+    /*
+     * Fill the table name for serviceProviders
+     */
+    'serviceProvidersMapTableName' => 'serviceProvidersMap',
 
 	/*
 	 * Fill true, if you want to use encryption, false if not.
