@@ -25,6 +25,21 @@ class sspmod_proxystatistics_Auth_Process_statistics extends SimpleSAML_Auth_Pro
 	{
 		$dateTime = new DateTime();
 		DatabaseCommand::insertLogin($request, $dateTime);
+
+		$eduPersonUniqueId = $request['Attributes']['eduPersonUniqueId'][0];
+		$spEntityId = $request['SPMetadata']['entityid'];
+		$sourceIdPEppn = $request['Attributes']['sourceIdPEppn'][0];
+		$sourceIdPEntityId = $request['Attributes']['sourceIdPEntityID'][0];
+
+		if (isset($request['perun']['user'])) {
+			$user = $request['perun']['user'];
+			SimpleSAML\Logger::notice('UserId: ' . $user->getId() . ', identity: ' .  $eduPersonUniqueId . ', service: ' . $spEntityId .
+				', external identity: ' . $sourceIdPEppn . ' from ' . $sourceIdPEntityId);
+		} else {
+			SimpleSAML\Logger::notice('User identity: ' .  $eduPersonUniqueId . ', service: ' . $spEntityId .
+				', external identity: ' . $sourceIdPEppn . ' from ' . $sourceIdPEntityId);
+		}
+
 	}
 
 }

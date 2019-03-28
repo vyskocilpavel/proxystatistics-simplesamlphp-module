@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+[Added]
+- Every successfully log in is logged with notice level 
 
 ## [v2.0.0]
 [Added]
