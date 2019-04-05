@@ -2,6 +2,7 @@
 
 namespace SimpleSAML\Module\proxystatistics\Auth\Process;
 
+use DateTime;
 use SimpleSAML\Error\Exception;
 use SimpleSAML\Logger;
 
@@ -27,13 +28,23 @@ class Statistics extends \SimpleSAML\Auth\ProcessingFilter
 
     public function process(&$request)
     {
-        $dateTime = new \DateTime();
+        $dateTime = new DateTime();
         DatabaseCommand::insertLogin($request, $dateTime);
-
-        $eduPersonUniqueId = $request['Attributes']['eduPersonUniqueId'][0];
         $spEntityId = $request['SPMetadata']['entityid'];
-        $sourceIdPEppn = $request['Attributes']['sourceIdPEppn'][0];
-        $sourceIdPEntityId = $request['Attributes']['sourceIdPEntityID'][0];
+
+        $eduPersonUniqueId = '';
+        $sourceIdPEppn = '';
+        $sourceIdPEntityId = '';
+
+        if (isset($request['Attributes']['eduPersonUniqueId'][0])) {
+            $eduPersonUniqueId = $request['Attributes']['eduPersonUniqueId'][0];
+        }
+        if (isset($request['Attributes']['sourceIdPEppn'][0])) {
+            $sourceIdPEppn = $request['Attributes']['sourceIdPEppn'][0];
+        }
+        if (isset($request['Attributes']['sourceIdPEntityID'][0])) {
+            $sourceIdPEntityId = $request['Attributes']['sourceIdPEntityID'][0];
+        }
 
         if (isset($request['perun']['user'])) {
             $user = $request['perun']['user'];

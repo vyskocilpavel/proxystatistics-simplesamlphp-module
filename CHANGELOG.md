@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 [Added]
 - Added file phpcs.xml
 
+[Fixed]
+- Fixed the problem with generating error, when some of attributes 'eduPersonUniqueId', 'sourceIdPEppn', 'sourceIdPEntityId' is null 
+
 [Changed]
 - Changed code style to PSR-2
 - Module uses namespaces
