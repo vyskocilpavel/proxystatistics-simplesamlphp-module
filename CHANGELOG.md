@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 - Removed unused include from 'templates/spDetail-tpl.php'
 - Deleted useless code
 - Deleted 'head' and 'body' tag in tab templates
+- Use 'filter_input' to GET and VALIDATE value send as GET/POST param
 
 #### Fixed
 - Fixed the syntax of CHANGELOG
