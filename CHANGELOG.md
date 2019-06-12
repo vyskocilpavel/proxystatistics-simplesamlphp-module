@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 #### Changed
 - Using of short array syntax (from array() to [])
+- Specify engine and default charset in tables.sql
 
 #### Fixed
 - Fixed the syntax of CHANGELOG
