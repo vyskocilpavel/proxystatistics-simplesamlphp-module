@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Using of short array syntax (from array() to [])
 - Specify engine and default charset in tables.sql
 - Removed unused include from 'templates/spDetail-tpl.php'
+- Deleted useless code
 
 #### Fixed
 - Fixed the syntax of CHANGELOG
