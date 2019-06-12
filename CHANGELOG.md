@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 - Specify engine and default charset in tables.sql
 - Removed unused include from 'templates/spDetail-tpl.php'
 - Deleted useless code
+- Deleted 'head' and 'body' tag in tab templates
 
 #### Fixed
 - Fixed the syntax of CHANGELOG
