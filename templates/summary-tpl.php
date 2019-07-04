@@ -25,22 +25,38 @@ require 'timeRange.include.php';
 </div>
 
 <div class="row tableMaxHeight">
-    <div class="col-md-6 graph">
+    <div class="<?php echo $this->data['summaryGraphs']['identityProviders'] ?>">
         <h2><?php echo $this->t('{proxystatistics:Proxystatistics:templates/graphs_id_providers}'); ?></h2>
-        <div class="legend">
-            <div id="summaryIdp">
-                <?php echo $this->t('{proxystatistics:Proxystatistics:templates/summary_idps_info}'); ?>
+        <div class="row">
+            <div class="<?php echo $this->data['summaryGraphs']['identityProvidersLegend'] ?>">
+                <div class="legend">
+                    <div id="summaryIdp">
+                        <?php echo $this->t('{proxystatistics:Proxystatistics:templates/summary_idps_info}'); ?>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="idpsChart" class="pieChart chart-idpsChart"></div>
+        <div class="row">
+            <div class="<?php echo $this->data['summaryGraphs']['identityProvidersGraph'] ?>">
+                <div id="idpsChart" class="pieChart chart-idpsChart"></div>
+            </div>
+        </div>
     </div>
-    <div class="col-md-6">
+    <div class="<?php echo $this->data['summaryGraphs']['serviceProviders'] ?>">
         <h2><?php echo $this->t('{proxystatistics:Proxystatistics:templates/graphs_service_providers}'); ?></h2>
-        <div class="legend">
-            <div>
-                <?php echo $this->t('{proxystatistics:Proxystatistics:templates/summary_sps_info}'); ?>
+        <div class="row">
+            <div class="<?php echo $this->data['summaryGraphs']['serviceProvidersLegend'] ?>">
+                <div class="legend">
+                    <div>
+                        <?php echo $this->t('{proxystatistics:Proxystatistics:templates/summary_sps_info}'); ?>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="spsChart" class="pieChart chart-spsChart"></div>
+        <div class="row">
+            <div class="<?php echo $this->data['summaryGraphs']['serviceProvidersGraph'] ?>">
+                <div id="spsChart" class="pieChart chart-spsChart"></div>
+            </div>
+        </div>
     </div>
 </div>

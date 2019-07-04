@@ -67,3 +67,7 @@ table{
 .pieChart {
     height: 450px;
 }
+
+.hidden {
+    display: none;
+}

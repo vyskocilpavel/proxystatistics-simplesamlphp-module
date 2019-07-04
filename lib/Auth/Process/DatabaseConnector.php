@@ -24,6 +24,11 @@ class DatabaseConnector
     private $sslCert;
     private $sslKey;
     private $sslCAPath;
+    private $mode;
+    private $idpEntityId;
+    private $idpName;
+    private $spEntityId;
+    private $spName;
 
     const CONFIG_FILE_NAME = 'module_statisticsproxy.php';
     const SERVER = 'serverName';
@@ -39,7 +44,11 @@ class DatabaseConnector
     const SSL_CERT = 'ssl_cert_path';
     const SSL_KEY = 'ssl_key_path';
     const SSL_CA_PATH = 'ssl_ca_path';
-
+    const MODE = 'mode';
+    const IDP_ENTITY_ID = 'idpEntityId';
+    const IDP_NAME = 'idpName';
+    const SP_ENTITY_ID = 'spEntityId';
+    const SP_NAME = 'spName';
 
     public function __construct()
     {
@@ -57,6 +66,11 @@ class DatabaseConnector
         $this->sslCert = $conf->getString(self::SSL_CERT, '');
         $this->sslKey = $conf->getString(self::SSL_KEY, '');
         $this->sslCAPath = $conf->getString(self::SSL_CA_PATH, '');
+        $this->mode = $conf->getString(self::MODE, 'PROXY');
+        $this->idpEntityId = $conf->getString(self::IDP_ENTITY_ID, '');
+        $this->idpName = $conf->getString(self::IDP_NAME, '');
+        $this->spEntityId = $conf->getString(self::SP_ENTITY_ID, '');
+        $this->spName = $conf->getString(self::SP_NAME, '');
     }
 
     public function getConnection()
@@ -98,5 +112,30 @@ class DatabaseConnector
     public function getServiceProvidersMapTableName()
     {
         return $this->serviceProvidersMapTableName;
+    }
+
+    public function getMode()
+    {
+        return $this->mode;
+    }
+
+    public function getIdpEntityId()
+    {
+        return $this->idpEntityId;
+    }
+
+    public function getIdpName()
+    {
+        return $this->idpName;
+    }
+
+    public function getSpEntityId()
+    {
+        return $this->spEntityId;
+    }
+
+    public function getSpName()
+    {
+        return $this->spName;
     }
 }
