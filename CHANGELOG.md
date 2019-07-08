@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 - Fixed the syntax of CHANGELOG
+- Fixed SQL injection vulnerability
 
 ## [v3.0.0]
 #### Added
