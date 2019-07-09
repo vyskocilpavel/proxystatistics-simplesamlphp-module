@@ -7,10 +7,9 @@ use SimpleSAML\Module;
  * @author Dominik Baránek <0Baranek.dominik0@gmail.com>
  */
 
-?>
 
-<?php
-require 'timeRange.include.php';
+require_once 'timeRange.include.php';
+require_once 'functions.include.php';
 ?>
 
 <h2><?php echo $this->t('{proxystatistics:Proxystatistics:templates/graphs_logins}'); ?></h2>
@@ -18,10 +17,7 @@ require 'timeRange.include.php';
     <div>
         <?php echo $this->t('{proxystatistics:Proxystatistics:templates/summary_logins_info}'); ?>
     </div>
-</div>
-<div id="loginsDashboard">
-    <div id="line_div"></div>
-    <div id="control_div"></div>
+    <?php require_once 'loginsDashboard.include.php'; ?>
 </div>
 
 <div class="row tableMaxHeight">
@@ -38,7 +34,7 @@ require 'timeRange.include.php';
         </div>
         <div class="row">
             <div class="<?php echo $this->data['summaryGraphs']['identityProvidersGraph'] ?>">
-                <div id="idpsChart" class="pieChart chart-idpsChart"></div>
+                <?php pieChart('idpsChart'); ?>
             </div>
         </div>
     </div>
@@ -55,7 +51,7 @@ require 'timeRange.include.php';
         </div>
         <div class="row">
             <div class="<?php echo $this->data['summaryGraphs']['serviceProvidersGraph'] ?>">
-                <div id="spsChart" class="pieChart chart-spsChart"></div>
+                <?php pieChart('spsChart'); ?>
             </div>
         </div>
     </div>

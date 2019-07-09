@@ -129,7 +129,8 @@ class DatabaseCommand
                 "SELECT year, month, day, SUM(count) AS count " .
                 "FROM " . $table_name . " " .
                 "WHERE service != '' " .
-                "GROUP BY year DESC,month DESC,day DESC"
+                "GROUP BY year,month,day " .
+                "ORDER BY year ASC,month ASC,day ASC"
             );
         } else {
             $stmt = $conn->prepare(
@@ -138,7 +139,8 @@ class DatabaseCommand
                 "WHERE service != '' AND " .
                 "CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) " .
                 "BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE()" .
-                "GROUP BY year DESC,month DESC,day DESC"
+                "GROUP BY year,month,day " .
+                "ORDER BY year ASC,month ASC,day ASC"
             );
             $stmt->bind_param('d', $days);
         }
@@ -160,7 +162,8 @@ class DatabaseCommand
                 "SELECT year, month, day, SUM(count) AS count " .
                     "FROM " . $table_name . " " .
                     "WHERE service=? " .
-                    "GROUP BY year DESC,month DESC,day DESC"
+                    "GROUP BY year,month,day " .
+                    "ORDER BY year ASC,month ASC,day ASC"
             );
             $stmt->bind_param('s', $spIdentifier);
         } else {
@@ -170,7 +173,8 @@ class DatabaseCommand
                 "WHERE service=? " .
                 "AND CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) " .
                 "BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() " .
-                "GROUP BY year DESC,month DESC,day DESC"
+                "GROUP BY year,month,day " .
+                "ORDER BY year ASC,month ASC,day ASC"
             );
             $stmt->bind_param('sd', $spIdentifier, $days);
         }
@@ -192,7 +196,8 @@ class DatabaseCommand
                 "SELECT year, month, day, SUM(count) AS count " .
                 "FROM " . $table_name . " " .
                 "WHERE sourceIdP=? " .
-                "GROUP BY year DESC,month DESC,day DESC"
+                "GROUP BY year,month,day " .
+                "ORDER BY year ASC,month ASC,day ASC"
             );
             $stmt->bind_param('s', $idpIdentifier);
         } else {
@@ -202,7 +207,8 @@ class DatabaseCommand
                 "WHERE sourceIdP=? " .
                 "AND CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) " .
                 "BETWEEN CURDATE() - INTERVAL ? DAY AND CURDATE() " .
-                "GROUP BY year DESC,month DESC,day DESC"
+                "GROUP BY year,month,day " .
+                "ORDER BY year ASC,month ASC,day ASC"
             );
             $stmt->bind_param('sd', $idpIdentifier, $days);
         }

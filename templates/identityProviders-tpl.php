@@ -10,7 +10,8 @@ use SimpleSAML\Module;
 ?>
 
 <?php
-require 'timeRange.include.php';
+require_once 'timeRange.include.php';
+require_once 'functions.include.php';
 ?>
 
 <h2><?php echo $this->t('{proxystatistics:Proxystatistics:templates/graphs_id_providers}'); ?></h2>
@@ -19,9 +20,9 @@ require 'timeRange.include.php';
 </div>
 <div class="row">
     <div class="col-md-8">
-        <div id="idpsChartDetail" class="pieChart chart-idpsChart"></div>
+        <?php pieChart('idpsChart'); ?>
     </div>
     <div class="col-md-4">
-        <div id="idpsTable" class="table"></div>
+        <div id="idpsTable" class="table-container"></div>
     </div>
 </div>

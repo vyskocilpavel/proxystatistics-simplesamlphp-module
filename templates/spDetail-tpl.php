@@ -13,10 +13,9 @@ const INSTANCE_NAME = 'instance_name';
 $lastDays = $this->data['lastDays'];
 $spIdentifier = $this->data['identifier'];
 
-$this->data['jquery'] = ['core' => true, 'ui' => true, 'css' => true];
-$this->data['head'] = '<link rel="stylesheet"  media="screen" type="text/css" href="' .
-    Module::getModuleUrl('proxystatistics/statisticsproxy.css') . '" />';
-$this->data['head'] .= '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
+require_once 'charts.include.php';
+require_once 'functions.include.php';
+
 $this->data['head'] .= '<meta name="loginCountPerDay" id="loginCountPerDay" content="' .
     htmlspecialchars(json_encode(
         DatabaseCommand::getLoginCountPerDayForService($lastDays, $spIdentifier),
@@ -56,9 +55,7 @@ $this->includeAtTemplateBase('includes/header.php');
         </a>
     </div>
 
-    <?php
-    require 'timeRange.include.php';
-    ?>
+    <?php require_once 'timeRange.include.php'; ?>
 
     <h3><?php echo $this->t('{proxystatistics:Proxystatistics:templates/spDetail_dashboard_header}'); ?></h3>
 
@@ -66,10 +63,7 @@ $this->includeAtTemplateBase('includes/header.php');
         <div><?php echo $this->t('{proxystatistics:Proxystatistics:templates/spDetail_dashboard_legend}'); ?></div>
     </div>
 
-    <div id="loginsDashboard">
-        <div id="line_div"></div>
-        <div id="control_div"></div>
-    </div>
+    <?php require_once 'loginsDashboard.include.php'; ?>
 
     <div class="<?php echo $this->data['spDetailGraphClass'] ?>">
         <h3><?php echo $this->t('{proxystatistics:Proxystatistics:templates/spDetail_graph_header}'); ?></h3>
@@ -78,10 +72,10 @@ $this->includeAtTemplateBase('includes/header.php');
         </div>
         <div class="row">
             <div class="col-md-8">
-                <div id="usedIdPsChartDetail" class="pieChart"></div>
+                <?php pieChart('usedIdPsChartDetail'); ?>
             </div>
             <div class="col-md-4">
-                <div id="usedIdPsTable" class="table"></div>
+                <div id="usedIdPsTable" class="table-container"></div>
             </div>
         </div>
     </div>
