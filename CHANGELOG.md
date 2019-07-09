@@ -18,6 +18,7 @@ All notable changes to this project will be documented in this file.
 - Set default values for some option in 'DatabaseConnector.php'
 - Remove duplicate code from 'DatabaseConnector.php'
 - Move duplicate code for timeRange to separate file
+- Use import instead of unnecessary qualifier
 
 #### Fixed
 - Fixed the syntax of CHANGELOG

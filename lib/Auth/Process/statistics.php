@@ -3,6 +3,7 @@
 namespace SimpleSAML\Module\proxystatistics\Auth\Process;
 
 use DateTime;
+use SimpleSAML\Auth\ProcessingFilter;
 use SimpleSAML\Error\Exception;
 use SimpleSAML\Logger;
 
@@ -10,7 +11,7 @@ use SimpleSAML\Logger;
  *
  * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
  */
-class Statistics extends \SimpleSAML\Auth\ProcessingFilter
+class Statistics extends ProcessingFilter
 {
     private $config;
     private $reserved;
