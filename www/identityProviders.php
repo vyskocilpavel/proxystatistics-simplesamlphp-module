@@ -18,4 +18,5 @@ $t->data['lastDays'] = filter_input(
     FILTER_VALIDATE_INT,
     ['options'=>['default'=>0,'min_range'=>0]]
 );
+$t->data['tab'] = 1;
 $t->show();
