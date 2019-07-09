@@ -17,6 +17,7 @@ All notable changes to this project will be documented in this file.
 - Using 'fetch_all' instead of 'fetch_asoc' to get data from DB
 - Set default values for some option in 'DatabaseConnector.php'
 - Remove duplicate code from 'DatabaseConnector.php'
+- Move duplicate code for timeRange to separate file
 
 #### Fixed
 - Fixed the syntax of CHANGELOG
