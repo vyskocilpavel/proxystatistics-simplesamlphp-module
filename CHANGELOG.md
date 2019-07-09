@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Added
+- Added configuration file for ESLint
+
 #### Changed
 - Using of short array syntax (from array() to [])
 - Specify engine and default charset in tables.sql
@@ -9,6 +12,9 @@ All notable changes to this project will be documented in this file.
 - Deleted useless code
 - Deleted 'head' and 'body' tag in tab templates
 - Use 'filter_input' to GET and VALIDATE value send as GET/POST param
+- Eliminate inline javascript
+    - All JS code was moved to 'index.js'
+- Using 'fetch_all' instead of 'fetch_asoc' to get data from DB
 
 #### Fixed
 - Fixed the syntax of CHANGELOG
