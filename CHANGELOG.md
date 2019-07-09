@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - Eliminate inline javascript
     - All JS code was moved to 'index.js'
 - Using 'fetch_all' instead of 'fetch_asoc' to get data from DB
+- Set default values for some option in 'DatabaseConnector.php'
 
 #### Fixed
 - Fixed the syntax of CHANGELOG

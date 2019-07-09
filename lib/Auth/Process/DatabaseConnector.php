@@ -45,18 +45,18 @@ class DatabaseConnector
     {
         $conf = Configuration::getConfig(self::CONFIG_FILE_NAME);
         $this->serverName = $conf->getString(self::SERVER);
-        $this->port = $conf->getInteger(self::PORT, null);
+        $this->port = $conf->getInteger(self::PORT, 3306);
         $this->username = $conf->getString(self::USER);
         $this->password = $conf->getString(self::PASSWORD);
         $this->databaseName = $conf->getString(self::DATABASE);
         $this->statisticsTableName = $conf->getString(self::STATS_TABLE_NAME);
         $this->identityProvidersMapTableName = $conf->getString(self::IDP_MAP_TABLE_NAME);
         $this->serviceProvidersMapTableName = $conf->getString(self::SP_MAP_TABLE_NAME);
-        $this->encryption = $conf->getBoolean(self::ENCRYPTION);
-        $this->sslCA = $conf->getString(self::SSL_CA);
-        $this->sslCert = $conf->getString(self::SSL_CERT);
-        $this->sslKey = $conf->getString(self::SSL_KEY);
-        $this->sslCAPath = $conf->getString(self::SSL_CA_PATH);
+        $this->encryption = $conf->getBoolean(self::ENCRYPTION, false);
+        $this->sslCA = $conf->getString(self::SSL_CA, '');
+        $this->sslCert = $conf->getString(self::SSL_CERT, '');
+        $this->sslKey = $conf->getString(self::SSL_KEY, '');
+        $this->sslCAPath = $conf->getString(self::SSL_CA_PATH, '');
     }
 
     public function getConnection()
