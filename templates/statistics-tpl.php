@@ -56,17 +56,20 @@ $this->includeAtTemplateBase('includes/header.php');
 
 <div id="tabdiv" data-activetab="<?php echo htmlspecialchars($this->data['tab']);?>">
     <ul class="tabset_tabs" width="100px">
-        <li><a id="tab-1"
-               href='<?php echo "summary.php?lastDays=" . $this->data['lastDays']; ?>'>
-                <?php echo $this->t('{proxystatistics:Proxystatistics:summary}'); ?></a>
+        <li>
+            <a <?php echo $this->data['tabsAttributes']['PROXY'] ?>>
+                <?php echo $this->t('{proxystatistics:Proxystatistics:summary}'); ?>
+            </a>
         </li>
-        <li><a id="tab-2"
-               href='<?php echo "identityProviders.php?lastDays=" . $this->data['lastDays']; ?>'>
-                <?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_idpsDetail}'); ?></a>
+        <li>
+            <a <?php echo $this->data['tabsAttributes']['IDP'] ?>>
+                <?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_idpsDetail}'); ?>
+            </a>
         </li>
-        <li><a id="tab-3"
-               href='<?php echo "serviceProviders.php?lastDays=" . $this->data['lastDays']; ?>'>
-                <?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_spsDetail}'); ?></a>
+        <li>
+            <a <?php echo $this->data['tabsAttributes']['SP'] ?>>
+                <?php echo $this->t('{proxystatistics:Proxystatistics:templates/statistics-tpl_spsDetail}'); ?>
+            </a>
         </li>
     </ul>
 </div>

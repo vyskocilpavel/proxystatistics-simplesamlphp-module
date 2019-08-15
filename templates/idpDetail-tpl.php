@@ -71,16 +71,18 @@ $this->includeAtTemplateBase('includes/header.php');
         <div id="control_div"></div>
     </div>
 
-    <h3><?php echo $this->t('{proxystatistics:Proxystatistics:templates/idpDetail_graph_header}'); ?></h3>
-    <div class="legend">
-        <div><?php echo $this->t('{proxystatistics:Proxystatistics:templates/idpDetail_graph_legend}'); ?></div>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div id="accessedSpsChartDetail" class="pieChart"></div>
+    <div class="<?php echo $this->data['idpDetailGraphClass'] ?>">
+        <h3><?php echo $this->t('{proxystatistics:Proxystatistics:templates/idpDetail_graph_header}'); ?></h3>
+        <div class="legend">
+            <div><?php echo $this->t('{proxystatistics:Proxystatistics:templates/idpDetail_graph_legend}'); ?></div>
         </div>
-        <div class="col-md-4">
-            <div id="accessedSpsTable" class="table"></div>
+        <div class="row">
+            <div class="col-md-8">
+                <div id="accessedSpsChartDetail" class="pieChart"></div>
+            </div>
+            <div class="col-md-4">
+                <div id="accessedSpsTable" class="table"></div>
+            </div>
         </div>
     </div>
     </body>

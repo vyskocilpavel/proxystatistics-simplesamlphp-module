@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 #### Added
 - Added configuration file for ESLint
+- Module now supports running statistics as IDP/SP
 
 #### Changed
 - Using of short array syntax (from array() to [])

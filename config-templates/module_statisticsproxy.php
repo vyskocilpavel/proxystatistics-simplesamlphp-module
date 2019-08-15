@@ -9,6 +9,35 @@
 $config = [
 
     /*
+     * Choose one from the following modes: PROXY, IDP, SP
+     */
+    'mode' => '',
+
+    /*
+     * EntityId of IdP
+     * REQUIRED FOR IDP MODE
+     */
+    'idpEntityId' => '',
+
+    /*
+     * Name of IdP
+     * REQUIRED FOR IDP MODE
+     */
+    'idpName' => '',
+
+    /*
+     * EntityId of SP
+     * REQUIRED FOR SP MODE
+     */
+    'spEntityId' => '',
+
+    /*
+     * Name of SP
+     * REQUIRED FOR SP MODE
+     */
+    'spName' => '',
+
+    /*
      * Fill the serverName
      */
     'serverName' => 'localhost',
