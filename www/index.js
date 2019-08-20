@@ -208,7 +208,7 @@ function drawPieChart(colNames, dataName, viewCols, url, getEl) {
               }
               var value = myData.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
               label += value + ' (';
-              label += Math.round(value / total * 1000) / 10;
+              label += Math.round((value / total) * 1000) / 10;
               label += ' %)';
               return label;
             }
@@ -223,7 +223,9 @@ function drawPieChart(colNames, dataName, viewCols, url, getEl) {
 
           if (datasets.length) {
             for (var i = 0; i < datasets[0].data.length; ++i) {
-              text.push('<li class="chart-legend-item"><span class="bg-color-' + datasets[0].backgroundColor[i].substr(1) + '"></span>');
+              text.push('<li class="chart-legend-item"><span class="bg-color-'
+                + datasets[0].backgroundColor[i].substr(1)
+                + '"></span>');
               if (labels[i]) {
                 var label = labels[i];
                 if (url && (!other || i < datasets[0].data.length - 1)) {
@@ -255,28 +257,35 @@ function drawPieChart(colNames, dataName, viewCols, url, getEl) {
   legendContainer.innerHTML = chart.generateLegend();
 }
 
-var drawIdpsChart = drawPieChart.bind(null, ['sourceIdpName', 'sourceIdPEntityId', 'Count'], 'loginCountPerIdp', [0, 2], 'idpDetail.php?entityId=');
+var drawIdpsChart = drawPieChart.bind(null, ['sourceIdpName', 'sourceIdPEntityId', 'Count'], 'loginCountPerIdp',
+  [0, 2], 'idpDetail.php?entityId=');
 
-var drawSpsChart = drawPieChart.bind(null, ['service', 'serviceIdentifier', 'Count'], 'accessCountPerService', [0, 2], 'spDetail.php?identifier=');
+var drawSpsChart = drawPieChart.bind(null, ['service', 'serviceIdentifier', 'Count'], 'accessCountPerService',
+  [0, 2], 'spDetail.php?identifier=');
 
-function drawTable(cols, dataName, viewCols, allowHTML, dateCol, url, getEl) {
+function drawCountTable(cols, dataCol, countCol, dataName, allowHTML, url, getEl) {
   var el = getEl();
   if (!el) return;
 
-  var table = el.appendChild(document.createElement('table'));
+  var viewCols = [dataCol, countCol];
+
+  var tableDiv = el.appendChild(document.createElement('div'));
+  tableDiv.className = 'table-responsive';
+
+  var table = tableDiv.appendChild(document.createElement('table'));
   table.className = 'table table-striped table-hover table-condensed';
 
   var data = getStatisticsData(dataName);
 
-  var col = Object.keys(cols);
   var thead = table.appendChild(document.createElement('thead'));
   var tr = thead.appendChild(document.createElement('tr'));
   var th;
   var i;
-  for (i = 0; i < col.length; i++) {
-    if (!viewCols || viewCols.indexOf(i) !== -1) {
-      th = tr.appendChild(document.createElement('th'));
-      th.innerText = getTranslation(col[i]);
+  for (i = 0; i < viewCols.length; i++) {
+    th = tr.appendChild(document.createElement('th'));
+    th.innerText = getTranslation(cols[i]);
+    if (viewCols[i] === countCol) {
+      th.className = 'text-right';
     }
   }
 
@@ -285,36 +294,48 @@ function drawTable(cols, dataName, viewCols, allowHTML, dateCol, url, getEl) {
   var a;
   for (var j = 0; j < data.length; j++) {
     tr = tbody.appendChild(document.createElement('tr'));
-    for (i = 0; i < col.length; i++) {
-      if (!viewCols || viewCols.indexOf(i) !== -1) {
-        td = tr.appendChild(document.createElement('td'));
-        if (i === col.length - 1) {
-          td.className = "text-right";
-        }
-        if (url) {
-          a = document.createElement('a');
-          a[allowHTML ? 'innerHTML' : 'innerText'] = data[j][i];
-          a.href = url + encodeURIComponent(data[j][1]);
-          td.appendChild(a);
-        } else {
-          td[allowHTML ? 'innerHTML' : 'innerText'] = data[j][i];
-        }
+    for (i = 0; i < viewCols.length; i++) {
+      td = tr.appendChild(document.createElement('td'));
+      if (viewCols[i] === countCol) {
+        td.className = 'text-right';
+      }
+      if (url) {
+        a = document.createElement('a');
+        a[allowHTML ? 'innerHTML' : 'innerText'] = data[j][viewCols[i]];
+        a.href = url + encodeURIComponent(data[j][1]);
+        td.appendChild(a);
+      } else {
+        td[allowHTML ? 'innerHTML' : 'innerText'] = data[j][viewCols[i]];
       }
     }
   }
+
+  el.addEventListener('scroll', function floatingTableHead() {
+    var scrolling = el.scrollTop > 0;
+    el.classList.toggle('scrolling', scrolling);
+    el.querySelectorAll('th').forEach(function floatTh(the) {
+      the.style.transform = scrolling ? ('translateY(' + el.scrollTop + 'px)') : ''; // eslint-disable-line no-param-reassign
+    });
+  });
 }
 
-var drawIdpsTable = drawTable.bind(null, { tables_identity_provider: 'string', tables_identity_provider2: 'string', count: 'number' }, 'loginCountPerIdp', [0, 2], false, null, 'idpDetail.php?entityId=');
+var drawIdpsTable = drawCountTable.bind(null, ['tables_identity_provider', 'count'], 0, 2,
+  'loginCountPerIdp', false, 'idpDetail.php?entityId=');
 
-var drawAccessedSpsChart = drawPieChart.bind(null, ['service', 'Count'], 'accessCountForIdentityProviderPerServiceProviders', null, null);
+var drawAccessedSpsChart = drawPieChart.bind(null, ['service', 'Count'],
+  'accessCountForIdentityProviderPerServiceProviders', null, null);
 
-var drawAccessedSpsTable = drawTable.bind(null, { tables_service_provider: 'string', count: 'number' }, 'accessCountForIdentityProviderPerServiceProviders', null, true, null, null);
+var drawAccessedSpsTable = drawCountTable.bind(null, ['tables_service_provider', 'count'], 0, 1,
+  'accessCountForIdentityProviderPerServiceProviders', true, null);
 
-var drawSpsTable = drawTable.bind(null, { tables_service_provider: 'string', count2: 'string', count: 'number' }, 'accessCountPerService', [0, 2], true, 0, 'spDetail.php?identifier=');
+var drawSpsTable = drawCountTable.bind(null, ['tables_service_provider', 'count'], 0, 2,
+  'accessCountPerService', true, 'spDetail.php?identifier=');
 
-var drawUsedIdpsChart = drawPieChart.bind(null, ['service', 'Count'], 'accessCountForServicePerIdentityProviders', null, null);
+var drawUsedIdpsChart = drawPieChart.bind(null, ['service', 'Count'],
+  'accessCountForServicePerIdentityProviders', null, null);
 
-var drawUsedIdpsTable = drawTable.bind(null, { tables_service_provider: 'string', count: 'number' }, 'accessCountForServicePerIdentityProviders', null, true, null, null);
+var drawUsedIdpsTable = drawCountTable.bind(null, ['tables_service_provider', 'count'], 0, 1,
+  'accessCountForServicePerIdentityProviders', true, null);
 
 function getterLoadCallback(getEl, callback) {
   callback(getEl);

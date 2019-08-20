@@ -2,7 +2,10 @@
 use SimpleSAML\Module;
 
 $this->data['jquery'] = ['core' => true, 'ui' => true, 'css' => true];
-$this->data['head'] = '<link rel="stylesheet"  media="screen" type="text/css" href="' .
+$this->data['head'] = '';
+$this->data['head'] .= '<link rel="stylesheet"  media="screen" type="text/css" href="' .
+    Module::getModuleUrl('proxystatistics/bootstrap.min.css') . '" />';
+$this->data['head'] .= '<link rel="stylesheet"  media="screen" type="text/css" href="' .
     Module::getModuleUrl('proxystatistics/statisticsproxy.css') . '" />';
 $this->data['head'] .= '<link rel="stylesheet" type="text/css" href="' .
     Module::getModuleUrl('proxystatistics/Chart.min.css') . '">';
