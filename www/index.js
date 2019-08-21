@@ -55,9 +55,8 @@ function drawLoginsChart(getEl) {
       scales: {
         xAxes: [{
           type: 'time',
-          time: {
+          time: { // do not set round: 'day', because it breaks zooming out from 7 or fewer days
             isoWeekday: true,
-            round: 'day',
             minUnit: 'day',
             tooltipFormat: 'l'
           }
