@@ -59,7 +59,6 @@ h1, h2, h3 {
 .legend-container, .canvas-container, .table-container {
     height: 90vh;
     max-height: 500px;
-    width: 90vw;
     max-width: 100%;
 }
 
@@ -71,34 +70,41 @@ h1, h2, h3 {
     overflow-y: auto;
 }
 
-.bg-color-3366CC { background-color: #3366CC; }
-.bg-color-DC3912 { background-color: #DC3912; }
-.bg-color-FF9900 { background-color: #FF9900; }
-.bg-color-109618 { background-color: #109618; }
-.bg-color-990099 { background-color: #990099; }
-.bg-color-3B3EAC { background-color: #3B3EAC; }
-.bg-color-0099C6 { background-color: #0099C6; }
-.bg-color-DD4477 { background-color: #DD4477; }
-.bg-color-66AA00 { background-color: #66AA00; }
-.bg-color-B82E2E { background-color: #B82E2E; }
-.bg-color-316395 { background-color: #316395; }
-.bg-color-994499 { background-color: #994499; }
-.bg-color-22AA99 { background-color: #22AA99; }
-.bg-color-AAAA11 { background-color: #AAAA11; }
-.bg-color-6633CC { background-color: #6633CC; }
-.bg-color-E67300 { background-color: #E67300; }
-.bg-color-8B0707 { background-color: #8B0707; }
-.bg-color-329262 { background-color: #329262; }
-.bg-color-5574A6 { background-color: #5574A6; }
-.bg-color-3B3EAC { background-color: #3B3EAC; }
-.bg-color-DDDDDD { background-color: #DDDDDD; }
+.chart-legend .item {
+    display: inline-block;
+    text-indent: -2.5em;
+    margin-left: 2.5em;
+}
 
-.legend-container li span {
+.chart-legend li .item:before {
+    content: '';
     display: inline-block;
     width: 2em;
     height: 0.7em;
     margin-right: 0.5em;
 }
+.chart-legend li:nth-child(20n+1) .item:before { background-color: #3366CC; }
+.chart-legend li:nth-child(20n+2) .item:before { background-color: #DC3912; }
+.chart-legend li:nth-child(20n+3) .item:before { background-color: #FF9900; }
+.chart-legend li:nth-child(20n+4) .item:before { background-color: #109618; }
+.chart-legend li:nth-child(20n+5) .item:before { background-color: #990099; }
+.chart-legend li:nth-child(20n+6) .item:before { background-color: #3B3EAC; }
+.chart-legend li:nth-child(20n+7) .item:before { background-color: #0099C6; }
+.chart-legend li:nth-child(20n+8) .item:before { background-color: #DD4477; }
+.chart-legend li:nth-child(20n+9) .item:before { background-color: #66AA00; }
+.chart-legend li:nth-child(20n+10) .item:before { background-color: #B82E2E; }
+.chart-legend li:nth-child(20n+11) .item:before { background-color: #316395; }
+.chart-legend li:nth-child(20n+12) .item:before { background-color: #994499; }
+.chart-legend li:nth-child(20n+13) .item:before { background-color: #22AA99; }
+.chart-legend li:nth-child(20n+14) .item:before { background-color: #AAAA11; }
+.chart-legend li:nth-child(20n+15) .item:before { background-color: #6633CC; }
+.chart-legend li:nth-child(20n+16) .item:before { background-color: #E67300; }
+.chart-legend li:nth-child(20n+17) .item:before { background-color: #8B0707; }
+.chart-legend li:nth-child(20n+18) .item:before { background-color: #329262; }
+.chart-legend li:nth-child(20n+19) .item:before { background-color: #5574A6; }
+.chart-legend li:nth-child(20n) .item:before { background-color: #3B3EAC; }
+.chart-legend li.other .item:before { background-color: #DDDDDD; }
+
 .legend-container ul, .legend-container li {
     list-style-type: none;
 }
@@ -106,4 +112,12 @@ h1, h2, h3 {
 .table-container.scrolling th {
     background-color: white;
     box-shadow: 0 4px 5px -5px #666;
+}
+
+.table-container a, .chart-legend a {
+    border: 0;
+}
+.table-container a:not(:hover):not(:focus):not(:active),
+.chart-legend a:not(:hover):not(:focus):not(:active) {
+    text-decoration: none;
 }

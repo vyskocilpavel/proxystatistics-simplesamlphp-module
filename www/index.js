@@ -223,13 +223,17 @@ function drawPieChart(colNames, dataName, viewCols, url, getEl) {
 
           if (datasets.length) {
             for (var i = 0; i < datasets[0].data.length; ++i) {
-              text.push('<li class="chart-legend-item"><span class="bg-color-'
-                + datasets[0].backgroundColor[i].substr(1)
-                + '"></span>');
+              var liClasses = ['chart-legend-item'];
+              if (other && i === datasets[0].data.length - 1) {
+                liClasses.push('other');
+              }
+              text.push('<li class="' + liClasses.join(' ') + '">');
               if (labels[i]) {
                 var label = labels[i];
                 if (url && (!other || i < datasets[0].data.length - 1)) {
-                  label = '<a href="' + url + encodeURIComponent(data[i][1]) + '">' + label + '</a>';
+                  label = '<a href="' + url + encodeURIComponent(data[i][1]) + '" class="item">' + label + '</a>';
+                } else {
+                  label = '<span class="item">' + label + '</span>';
                 }
                 text.push(label);
               }
@@ -299,7 +303,7 @@ function drawCountTable(cols, dataCol, countCol, dataName, allowHTML, url, getEl
       if (viewCols[i] === countCol) {
         td.className = 'text-right';
       }
-      if (url) {
+      if (url && viewCols[i] === dataCol) {
         a = document.createElement('a');
         a[allowHTML ? 'innerHTML' : 'innerText'] = data[j][viewCols[i]];
         a.href = url + encodeURIComponent(data[j][1]);
