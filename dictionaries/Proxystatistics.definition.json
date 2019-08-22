@@ -63,6 +63,10 @@
     "en": "Count",
     "cs": "Počet"
   },
+  "templates/other": {
+    "en": "other",
+    "cs": "ostatní"
+  },
   "templates/graphs_logins": {
     "en": "Number of logins",
     "cs": "Počet přihlášení"

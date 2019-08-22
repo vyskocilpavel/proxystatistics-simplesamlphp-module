@@ -9,7 +9,8 @@
 ?>
 
 <?php
-require 'timeRange.include.php';
+require_once 'timeRange.include.php';
+require_once 'functions.include.php';
 ?>
 
 <h2><?php echo $this->t('{proxystatistics:Proxystatistics:templates/graphs_service_providers}'); ?></h2>
@@ -18,9 +19,9 @@ require 'timeRange.include.php';
 </div>
 <div class="row">
     <div class="col-md-8">
-        <div id="spsChartDetail" class="pieChart chart-spsChart"></div>
+        <?php pieChart('spsChart'); ?>
     </div>
     <div class="col-md-4">
-        <div id="spsTable" class="table"></div>
+        <div id="spsTable" class="table-container"></div>
     </div>
 </div>

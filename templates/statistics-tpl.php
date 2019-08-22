@@ -23,10 +23,7 @@ if (!is_null($instanceName)) {
     Logger::warning('Missing configuration: config.php - instance_name is not set.');
 }
 
-$this->data['jquery'] = ['core' => true, 'ui' => true, 'css' => true];
-$this->data['head'] = '<link rel="stylesheet"  media="screen" type="text/css" href="' .
-    Module::getModuleUrl('proxystatistics/statisticsproxy.css') . '" />';
-$this->data['head'] .= '<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>';
+require_once 'charts.include.php';
 
 if (!isset($this->data['lastDays'])) {
     $this->data['lastDays'] = 0;
@@ -50,6 +47,7 @@ $this->data['head'] .= '<meta name="translations" id="translations" content="'.h
     'tables_identity_provider' => $this->t('{proxystatistics:Proxystatistics:templates/tables_identity_provider}'),
     'tables_service_provider' => $this->t('{proxystatistics:Proxystatistics:templates/tables_service_provider}'),
     'count' => $this->t('{proxystatistics:Proxystatistics:templates/count}'),
+    'other' => $this->t('{proxystatistics:Proxystatistics:templates/other}'),
 ])).'">';
 $this->includeAtTemplateBase('includes/header.php');
 ?>
