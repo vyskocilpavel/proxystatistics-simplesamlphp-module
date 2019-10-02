@@ -73,11 +73,12 @@ class DatabaseCommand
                     "(identifier, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = ?"
                 );
                 $stmt->bind_param("sss", $spEntityId, $spName, $spName);
-                $stmt->execute();
+                $success = $stmt->execute();
+                if ($success) {
+                    Logger::info("The login log was successfully stored in database");
+                }
             }
         }
-
-        Logger::info("The login log was successfully stored in database");
 
         $conn->close();
     }
