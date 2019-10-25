@@ -66,9 +66,27 @@ $config = [
     ],
 
     /*
+     * For how many days should detailed statistics (per user) be kept.
+     * @default 0
+     */
+    'detailedDays' => 0,
+
+    /**
+     * Which attribute should be used as user ID.
+     * @default uid
+     */
+    'userIdAttribute' => 'uid',
+
+    /*
      * Fill the table name for statistics
      */
     'statisticsTableName' => 'statisticsTableName',
+
+    /*
+     * Fill the table name for detailed statistics
+     * @default
+     */
+    'detailedStatisticsTableName' => 'statistics_detail',
 
     /*
      * Fill the table name for identityProvidersMap
