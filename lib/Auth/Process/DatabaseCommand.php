@@ -45,8 +45,8 @@ class DatabaseCommand
 
         if (empty($idpEntityID) || empty($spEntityId)) {
             Logger::error(
-                "Some from attribute: 'idpEntityId', 'idpName', 'spEntityId' and 'spName'" .
-                " is null or empty and login log wasn't inserted into the database."
+                "'idpEntityId' or 'spEntityId'" .
+                " is empty and login log wasn't inserted into the database."
             );
         } else {
             $stmt = $conn->prepare(
