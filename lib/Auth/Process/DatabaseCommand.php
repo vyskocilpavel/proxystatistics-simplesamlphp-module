@@ -43,7 +43,7 @@ class DatabaseCommand
         $month = $date->format('m');
         $day = $date->format('d');
 
-        if (is_null($idpEntityID) || empty($idpEntityID) || is_null($spEntityId) || empty($spEntityId)) {
+        if (empty($idpEntityID) || empty($spEntityId)) {
             Logger::error(
                 "Some from attribute: 'idpEntityId', 'idpName', 'spEntityId' and 'spName'" .
                 " is null or empty and login log wasn't inserted into the database."
@@ -58,7 +58,7 @@ class DatabaseCommand
                 Logger::error("The login log wasn't inserted into table: " . $statisticsTableName . ".");
             }
 
-            if (!is_null($idpName) && !empty($idpName)) {
+            if (!empty($idpName)) {
                 $stmt->prepare(
                     "INSERT INTO " . $identityProvidersMapTableName .
                     "(entityId, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = ?"
@@ -67,7 +67,7 @@ class DatabaseCommand
                 $stmt->execute();
             }
 
-            if (!is_null($spName) && !empty($spName)) {
+            if (!empty($spName)) {
                 $stmt->prepare(
                     "INSERT INTO " . $serviceProvidersMapTableName .
                     "(identifier, name) VALUES (?, ?) ON DUPLICATE KEY UPDATE name = ?"

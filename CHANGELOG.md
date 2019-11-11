@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Changed
+- Remove unnecessary is_null()
+
 #### Fixed
 - Log info message about successful authentication only after successful authentication to SP
 
