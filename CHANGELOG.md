@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Log info message about successful authentication only after successful authentication to SP
 
 ## [v3.1.0]
 #### Added
