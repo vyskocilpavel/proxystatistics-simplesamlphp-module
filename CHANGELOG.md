@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 #### Fixed
 - Log info message about successful authentication only after successful authentication to SP
 - Correct log message in insertLogin()
+- Update README.md
+    - describe setup for modes PROXY/SP/IDP
+    - change array notation from `array()` to `[]`
 
 ## [v3.1.0]
 #### Added
