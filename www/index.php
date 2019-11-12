@@ -15,6 +15,13 @@ $config = Configuration::getInstance();
 $session = Session::getSessionFromRequest();
 
 $configStatisticsproxy = Configuration::getConfig(CONFIG_FILE_NAME_STATISTICSPROXY);
+
+$authSource = $configStatisticsproxy->getString('requireAuth.source', '');
+if ($authSource) {
+    $as = new \SimpleSAML\Auth\Simple($authSource);
+    $as->requireAuth();
+}
+
 $mode = $configStatisticsproxy->getString(MODE, 'PROXY');
 
 $t = new Template($config, 'proxystatistics:statistics-tpl.php');
