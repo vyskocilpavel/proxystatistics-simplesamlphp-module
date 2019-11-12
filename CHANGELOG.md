@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 - Remove unused indexes
 - Optimize left outer join
 - Don't double queries w/o days
+- Fixed the table header in detailed statistics for SP
 
 ## [v3.1.0]
 #### Added

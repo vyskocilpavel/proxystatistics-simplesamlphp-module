@@ -337,7 +337,7 @@ var drawSpsTable = drawCountTable.bind(null, ['tables_service_provider', 'count'
 var drawUsedIdpsChart = drawPieChart.bind(null, ['service', 'Count'],
   'accessCountForServicePerIdentityProviders', null, null);
 
-var drawUsedIdpsTable = drawCountTable.bind(null, ['tables_service_provider', 'count'], 0, 1,
+var drawUsedIdpsTable = drawCountTable.bind(null, ['tables_identity_provider', 'count'], 0, 1,
   'accessCountForServicePerIdentityProviders', true, null);
 
 function getterLoadCallback(getEl, callback) {
