@@ -38,29 +38,32 @@ $config = [
     'spName' => '',
 
     /*
-     * Fill the serverName
+     * Fill config for SimpleSAML\Database.
+     * If not set, the global config is used.
+     * @see SimpleSAML\Database
      */
-    'serverName' => 'localhost',
+    'store' => [
+        'database.dsn' => 'mysql:host=localhost;port=3306;dbname=STATS;charset=utf8',
+        'database.username' => 'stats',
+        'database.password' => 'stats',
 
-    /*
-     * If you want to use the default port, please comment option 'port'
-     */
-    'port' => 3306,
-
-    /*
-     * Fill the user name
-     */
-    'userName' => 'stats',
-
-    /*
-     * Fill the password
-     */
-    'password' => 'stats',
-
-    /*
-     * Fill the database name
-     */
-    'databaseName' => 'STATS',
+        /**
+         * Configuration for SSL
+         * If you want to use SSL you must filled this value and uncomment block of code
+         */
+        /*
+        'database.driver_options' => [
+            // Path for the ssl key file
+            PDO::MYSQL_ATTR_SSL_KEY => '',
+            // Path for the ssl cert file
+            PDO::MYSQL_ATTR_SSL_CERT => '',
+            // Path for the ssl ca file
+            PDO::MYSQL_ATTR_SSL_CA => '',
+            // Path for the ssl ca dir
+            PDO::MYSQL_ATTR_SSL_CAPATH => '',
+        ],
+        */
+    ],
 
     /*
      * Fill the table name for statistics
@@ -76,38 +79,4 @@ $config = [
      * Fill the table name for serviceProviders
      */
     'serviceProvidersMapTableName' => 'serviceProvidersMap',
-
-    /*
-     * Fill true, if you want to use encryption, false if not.
-     */
-    'encryption' => true / false,
-
-    /*
-     * The path name to the certificate authority file.
-     *
-     * If you use encryption, you must fill this option.
-     */
-    'ssl_ca' => '/example/ca.pem',
-
-    /*
-     * The path name to the certificate file.
-     *
-     * If you use encryption, you must fill this option.
-     */
-    'ssl_cert_path' => '/example/cert.pem',
-
-    /*
-     * The path name to the key file.
-     *
-     * If you use encryption, you must fill this option.
-     */
-    'ssl_key_path' => '/example/key.pem',
-
-    /*
-     * The pathname to a directory that contains trusted SSL CA certificates in PEM format.
-     *
-     * If you use encryption, you must fill this option.
-     */
-    'ssl_ca_path' => '/etc/ssl',
-
 ];
