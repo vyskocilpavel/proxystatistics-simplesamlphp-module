@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Update README.md
     - describe setup for modes PROXY/SP/IDP
     - change array notation from `array()` to `[]`
+- Read spName from $request only if present
 
 ## [v3.1.0]
 #### Added

@@ -20,23 +20,25 @@ class DatabaseCommand
         $identityProvidersMapTableName = $databaseConnector->getIdentityProvidersMapTableName();
         $serviceProvidersMapTableName = $databaseConnector->getServiceProvidersMapTableName();
 
+        if (!in_array($databaseConnector->getMode(), ['PROXY', 'IDP', 'SP'])) {
+            throw new Exception('Unknown mode is set. Mode has to be one of the following: PROXY, IDP, SP.');
+        }
+
+        if ($databaseConnector->getMode() !== 'IDP') {
+            $idpName = $request['Attributes']['sourceIdPName'][0];
+            $idpEntityID = $request['saml:sp:IdP'];
+        }
+        if ($databaseConnector->getMode() !== 'SP') {
+            $spEntityId = $request['Destination']['entityid'];
+            $spName = isset($request['Destination']['name']) ? $request['Destination']['name']['en'] : '';
+        }
+
         if ($databaseConnector->getMode() === 'IDP') {
             $idpName = $databaseConnector->getIdpName();
             $idpEntityID = $databaseConnector->getIdpEntityId();
-            $spEntityId = $request['Destination']['entityid'];
-            $spName = $request['Destination']['name']['en'];
         } elseif ($databaseConnector->getMode() === 'SP') {
-            $idpName = $request['Attributes']['sourceIdPName'][0];
-            $idpEntityID = $request['saml:sp:IdP'];
             $spEntityId = $databaseConnector->getSpEntityId();
             $spName = $databaseConnector->getSpName();
-        } elseif ($databaseConnector->getMode() === 'PROXY') {
-            $idpName = $request['Attributes']['sourceIdPName'][0];
-            $idpEntityID = $request['saml:sp:IdP'];
-            $spEntityId = $request['Destination']['entityid'];
-            $spName = $request['Destination']['name']['en'];
-        } else {
-            throw new Exception('Unknown mode is set. Mode has to be one of the following: PROXY, IDP, SP.');
         }
 
         $year = $date->format('Y');
