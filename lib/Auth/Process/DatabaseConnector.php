@@ -14,6 +14,7 @@ use PDO;
 class DatabaseConnector
 {
     private $statisticsTableName;
+    private $detailedStatisticsTableName;
     private $identityProvidersMapTableName;
     private $serviceProvidersMapTableName;
     private $mode;
@@ -21,6 +22,8 @@ class DatabaseConnector
     private $idpName;
     private $spEntityId;
     private $spName;
+    private $detailedDays;
+    private $userIdAttribute;
     private $conn = null;
 
     const CONFIG_FILE_NAME = 'module_statisticsproxy.php';
@@ -35,6 +38,7 @@ class DatabaseConnector
     /** @deprecated */
     const DATABASE = 'databaseName';
     const STATS_TABLE_NAME = 'statisticsTableName';
+    const DETAILED_STATS_TABLE_NAME = 'detailedStatisticsTableName';
     const IDP_MAP_TABLE_NAME = 'identityProvidersMapTableName';
     const SP_MAP_TABLE_NAME = 'serviceProvidersMapTableName';
     /** @deprecated */
@@ -53,6 +57,8 @@ class DatabaseConnector
     const IDP_NAME = 'idpName';
     const SP_ENTITY_ID = 'spEntityId';
     const SP_NAME = 'spName';
+    const DETAILED_DAYS = 'detailedDays';
+    const USER_ID_ATTRIBUTE = 'userIdAttribute';
 
     public function __construct()
     {
@@ -87,6 +93,7 @@ class DatabaseConnector
         $this->storeConfig = Configuration::loadFromArray($this->storeConfig);
 
         $this->statisticsTableName = $conf->getString(self::STATS_TABLE_NAME);
+        $this->detailedStatisticsTableName = $conf->getString(self::DETAILED_STATS_TABLE_NAME, 'statistics_detail');
         $this->identityProvidersMapTableName = $conf->getString(self::IDP_MAP_TABLE_NAME);
         $this->serviceProvidersMapTableName = $conf->getString(self::SP_MAP_TABLE_NAME);
         $this->mode = $conf->getString(self::MODE, 'PROXY');
@@ -94,6 +101,8 @@ class DatabaseConnector
         $this->idpName = $conf->getString(self::IDP_NAME, '');
         $this->spEntityId = $conf->getString(self::SP_ENTITY_ID, '');
         $this->spName = $conf->getString(self::SP_NAME, '');
+        $this->detailedDays = $conf->getInteger(self::DETAILED_DAYS, 0);
+        $this->userIdAttribute = $conf->getString(self::USER_ID_ATTRIBUTE, 'uid');
     }
 
     public function getConnection()
@@ -104,6 +113,11 @@ class DatabaseConnector
     public function getStatisticsTableName()
     {
         return $this->statisticsTableName;
+    }
+
+    public function getDetailedStatisticsTableName()
+    {
+        return $this->detailedStatisticsTableName;
     }
 
     public function getIdentityProvidersMapTableName()
@@ -139,5 +153,15 @@ class DatabaseConnector
     public function getSpName()
     {
         return $this->spName;
+    }
+
+    public function getDetailedDays()
+    {
+        return $this->detailedDays;
+    }
+
+    public function getUserIdAttribute()
+    {
+        return $this->userIdAttribute;
     }
 }

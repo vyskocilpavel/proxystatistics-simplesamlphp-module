@@ -14,6 +14,7 @@ class DatabaseCommand
     private $databaseConnector;
     private $conn;
     private $statisticsTableName;
+    private $detailedStatisticsTableName;
     private $identityProvidersMapTableName;
     private $serviceProvidersMapTableName;
 
@@ -21,10 +22,39 @@ class DatabaseCommand
     {
         $this->databaseConnector = new DatabaseConnector();
         $this->conn = $this->databaseConnector->getConnection();
-        assert($this->conn != null);
+        assert($this->conn !== null);
         $this->statisticsTableName = $this->databaseConnector->getStatisticsTableName();
+        $this->detailedStatisticsTableName = $this->databaseConnector->getDetailedStatisticsTableName();
         $this->identityProvidersMapTableName = $this->databaseConnector->getIdentityProvidersMapTableName();
         $this->serviceProvidersMapTableName = $this->databaseConnector->getServiceProvidersMapTableName();
+    }
+
+    private function writeLogin($year, $month, $day, $sourceIdp, $service, $user = null)
+    {
+        $params = [
+            'year' => $year,
+            'month' => $month,
+            'day' => $day,
+            'sourceIdp' => $sourceIdp,
+            'service' => $service,
+            'count' => 1,
+        ];
+        $table = $this->statisticsTableName;
+        if ($user && $this->databaseConnector->getDetailedDays() > 0) {
+            // write also into aggregated statistics
+            self::writeLogin($year, $month, $day, $sourceIdp, $service);
+            $params['user'] = $user;
+            $table = $this->detailedStatisticsTableName;
+        }
+        $fields = array_keys($params);
+        $placeholders = array_map(function ($field) {
+            return ':' . $field;
+
+        }, $fields);
+        $query = "INSERT INTO " . $table . " (" . implode(', ', $fields) . ")" .
+                 " VALUES (" . implode(', ', $placeholders) . ") ON DUPLICATE KEY UPDATE count = count + 1";
+
+        return $this->conn->write($query, $params);
     }
 
     public function insertLogin(&$request, &$date)
@@ -59,11 +89,9 @@ class DatabaseCommand
                 " is empty and login log wasn't inserted into the database."
             );
         } else {
-            if ($this->conn->write(
-                "INSERT INTO " . $this->statisticsTableName . "(year, month, day, sourceIdp, service, count)" .
-                " VALUES (:year, :month, :day, :idp, :sp, '1') ON DUPLICATE KEY UPDATE count = count + 1",
-                ['year'=>$year, 'month'=>$month, 'day'=>$day, 'idp'=>$idpEntityID, 'sp'=>$spEntityId]
-            ) === false) {
+            $idAttribute = $this->databaseConnector->getUserIdAttribute();
+            $userId = isset($request['Attributes'][$idAttribute]) ? $request['Attributes'][$idAttribute][0] : null;
+            if ($this->writeLogin($year, $month, $day, $idpEntityID, $spEntityId, $userId) === false) {
                 Logger::error("The login log wasn't inserted into table: " . $this->statisticsTableName . ".");
             }
 
@@ -197,7 +225,7 @@ class DatabaseCommand
         return $this->conn->read($query, $params)->fetchAll(PDO::FETCH_NUM);
     }
 
-    private static function addDaysRange($days, &$query, &$params)
+    private static function addDaysRange($days, &$query, &$params, $not = false)
     {
         if ($days != 0) {    // 0 = all time
             if (stripos($query, "WHERE") === false) {
@@ -205,9 +233,22 @@ class DatabaseCommand
             } else {
                 $query .= "AND";
             }
-            $query .= " CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) " .
-                  "BETWEEN CURDATE() - INTERVAL :days DAY AND CURDATE() ";
+            $query .= " CONCAT(year,'-',LPAD(month,2,'00'),'-',LPAD(day,2,'00')) ";
+            if ($not) {
+                $query .= "NOT ";
+            }
+            $query .= "BETWEEN CURDATE() - INTERVAL :days DAY AND CURDATE() ";
             $params['days'] = $days;
+        }
+    }
+
+    public function deleteOldDetailedStatistics()
+    {
+        if ($this->databaseConnector->getDetailedDays() > 0) {
+            $query = "DELETE FROM " . $this->detailedStatisticsTableName . " ";
+            $params = [];
+            self::addDaysRange($this->databaseConnector->getDetailedDays(), $query, $params, true);
+            return $this->conn->write($query, $params);
         }
     }
 }

@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file.
 #### Added
 - Added configuration file for ESLint
 - Module now supports running statistics as IDP/SP
+- Store detailed statistics(include some user identifier) for several days 
 
 #### Changed
 - Using of short array syntax (from array() to [])
