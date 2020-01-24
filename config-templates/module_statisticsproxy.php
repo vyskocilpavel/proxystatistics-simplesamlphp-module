@@ -1,6 +1,6 @@
 <?php
 /**
- * This is example configuration of SimpleSAMLphp Perun interface and additional features.
+ * This is an example configuration of SimpleSAMLphp Perun interface and additional features.
  * Copy this file to default config directory and edit the properties.
  *
  * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
@@ -9,7 +9,7 @@
 $config = [
 
     /*
-     * Choose one from the following modes: PROXY, IDP, SP
+     * Choose one of the following modes: PROXY, IDP, SP
      */
     'mode' => '',
 
@@ -38,7 +38,7 @@ $config = [
     'spName' => '',
 
     /*
-     * Fill config for SimpleSAML\Database.
+     * Config for SimpleSAML\Database.
      * If not set, the global config is used.
      * @see SimpleSAML\Database
      */
@@ -49,7 +49,7 @@ $config = [
 
         /**
          * Configuration for SSL
-         * If you want to use SSL you must filled this value and uncomment block of code
+         * If you want to use SSL, fill these values and uncomment the block of code
          */
         /*
         'database.driver_options' => [
@@ -78,23 +78,23 @@ $config = [
     'userIdAttribute' => 'uid',
 
     /*
-     * Fill the table name for statistics
+     * Table name for statistics
      */
     'statisticsTableName' => 'statisticsTableName',
 
     /*
-     * Fill the table name for detailed statistics
+     * Table name for detailed statistics
      * @default
      */
     'detailedStatisticsTableName' => 'statistics_detail',
 
     /*
-     * Fill the table name for identityProvidersMap
+     * Table name for identityProvidersMap
      */
     'identityProvidersMapTableName' => 'identityProvidersMap',
 
     /*
-     * Fill the table name for serviceProviders
+     * Table name for serviceProviders
      */
     'serviceProvidersMapTableName' => 'serviceProvidersMap',
 
