@@ -3,6 +3,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [v4.0.0]
+#### Added
+- aggregated statistics (logins and unique users)
+
+#### Changed
+- new database tables
+- config options for table names replaced with one (optional) option `tableNames`
+- option 'config' for auth proc filter made optional
+- auth proc filter renamed to Statistics (PascalCase)
+- major refactoring
+
+#### Removed
+- `detailedDays` config option
+- compatibility for deprecated database config options
+- duplicate code
+
 ## [v3.2.1]
 #### Fixed
 - Fixed the bug in using double '$'

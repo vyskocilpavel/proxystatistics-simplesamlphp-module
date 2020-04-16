@@ -6,11 +6,11 @@ function getStatisticsData(name) {
   return $.parseJSON($('#' + name).attr('content'));
 }
 
-function getStatisticsDataYMDC(name) {
+function getStatisticsDataYMDC(name, field) {
   return getStatisticsData(name).map(function mapItemToDate(item) {
     return {
-      t: new Date(item.year, item.month - 1, item.day),
-      y: item.count
+      t: new Date(item.day * 1000),
+      y: item[field]
     };
   });
 }
@@ -19,17 +19,7 @@ function getTranslation(str) {
   return $.parseJSON($('#translations').attr('content'))[str];
 }
 
-function drawLoginsChart(getEl) {
-  var el = getEl();
-  if (!el) return;
-
-  var ctx = el.getContext('2d');
-
-  var data = getStatisticsDataYMDC('loginCountPerDay');
-
-  var minX = data[0].t;
-  var maxX = data[data.length - 1].t;
-
+function extendData(data, minX, maxX) {
   var i = 0;
   var extendedData = [];
   for (var d = new Date(minX); d <= maxX; d.setDate(d.getDate() + 1)) {
@@ -42,7 +32,23 @@ function drawLoginsChart(getEl) {
       throw new Error("Data is not sorted");
     }
   }
-  data = extendedData;
+  return extendedData;
+}
+
+function drawLoginsChart(getEl) {
+  var el = getEl();
+  if (!el) return;
+
+  var ctx = el.getContext('2d');
+
+  var data = getStatisticsDataYMDC('loginCountPerDay', 'count');
+  var data2 = getStatisticsDataYMDC('loginCountPerDay', 'users');
+
+  var minX = Math.min(data[0].t, data2[0].t);
+  var maxX = Math.max(data[data.length - 1].t, data2[data2.length - 1].t);
+
+  data = extendData(data, minX, maxX);
+  data2 = extendData(data2, minX, maxX);
 
   new Chart(ctx, { // eslint-disable-line no-new
     type: 'bar',
@@ -109,15 +115,26 @@ function drawLoginsChart(getEl) {
     "data": {
         "datasets": [
             {
-                "label": "",
-                "data": data,
+                label: getTranslation('of_users'),
+                data: data2,
                 type: 'line',
                 pointRadius: 0,
                 fill: false,
                 lineTension: 0,
                 borderWidth: 2,
-                backgroundColor: '#00F',
-                borderColor: '#00F'
+                backgroundColor: '#3b3eac',
+                borderColor: '#3b3eac'
+            },
+            {
+                label: getTranslation('of_logins'),
+                data: data,
+                type: 'line',
+                pointRadius: 0,
+                fill: false,
+                lineTension: 0,
+                borderWidth: 2,
+                backgroundColor: '#f90',
+                borderColor: '#f90'
             }
         ]
     }
@@ -167,7 +184,7 @@ function processDataForPieChart(data, viewCols) {
   return { data: processedData, other: othersFraction > 0, total: total };
 }
 
-function drawPieChart(colNames, dataName, viewCols, url, getEl) {
+function drawPieChart(dataName, viewCols, url, getEl) {
   var el = getEl();
   if (!el) return;
 
@@ -260,11 +277,9 @@ function drawPieChart(colNames, dataName, viewCols, url, getEl) {
   legendContainer.innerHTML = chart.generateLegend();
 }
 
-var drawIdpsChart = drawPieChart.bind(null, ['sourceIdpName', 'sourceIdPEntityId', 'Count'], 'loginCountPerIdp',
-  [0, 2], 'idpDetail.php?entityId=');
-
-var drawSpsChart = drawPieChart.bind(null, ['service', 'serviceIdentifier', 'Count'], 'accessCountPerService',
-  [0, 2], 'spDetail.php?identifier=');
+function getDrawChart(side) {
+  return drawPieChart.bind(null, 'loginCountPer' + side, [0, 2], 'detail.php?side=' + side + '&id=');
+}
 
 function drawCountTable(cols, dataCol, countCol, dataName, allowHTML, url, getEl) {
   var el = getEl();
@@ -322,23 +337,14 @@ function drawCountTable(cols, dataCol, countCol, dataName, allowHTML, url, getEl
   });
 }
 
-var drawIdpsTable = drawCountTable.bind(null, ['tables_identity_provider', 'count'], 0, 2,
-  'loginCountPerIdp', false, 'idpDetail.php?entityId=');
+function getDrawTable(side) {
+  return drawCountTable.bind(null, ['tables_' + side, 'count'], 0, 2, 'loginCountPer' + side, false,
+    'detail.php?side=' + side + '&id=');
+}
 
-var drawAccessedSpsChart = drawPieChart.bind(null, ['service', 'Count'],
-  'accessCountForIdentityProviderPerServiceProviders', null, null);
-
-var drawAccessedSpsTable = drawCountTable.bind(null, ['tables_service_provider', 'count'], 0, 1,
-  'accessCountForIdentityProviderPerServiceProviders', true, null);
-
-var drawSpsTable = drawCountTable.bind(null, ['tables_service_provider', 'count'], 0, 2,
-  'accessCountPerService', true, 'spDetail.php?identifier=');
-
-var drawUsedIdpsChart = drawPieChart.bind(null, ['service', 'Count'],
-  'accessCountForServicePerIdentityProviders', null, null);
-
-var drawUsedIdpsTable = drawCountTable.bind(null, ['tables_identity_provider', 'count'], 0, 1,
-  'accessCountForServicePerIdentityProviders', true, null);
+function getDrawCountTable(side) {
+  return drawCountTable.bind(null, ['tables_' + side, 'count'], 0, 2, 'accessCounts', true, null);
+}
 
 function getterLoadCallback(getEl, callback) {
   callback(getEl);
@@ -354,14 +360,13 @@ function idLoadCallback(id, callback) {
 
 function chartInit() {
   idLoadCallback('loginsDashboard', drawLoginsChart);
-  classLoadCallback('chart-idpsChart', drawIdpsChart);
-  classLoadCallback('chart-spsChart', drawSpsChart);
-  idLoadCallback('idpsTable', drawIdpsTable);
-  idLoadCallback('accessedSpsChartDetail', drawAccessedSpsChart);
-  idLoadCallback('accessedSpsTable', drawAccessedSpsTable);
-  idLoadCallback('spsTable', drawSpsTable);
-  idLoadCallback('usedIdPsChartDetail', drawUsedIdpsChart);
-  idLoadCallback('usedIdPsTable', drawUsedIdpsTable);
+  ['IDP', 'SP'].forEach(function callbacksForSide(side) {
+    classLoadCallback('chart-' + side + 'Chart', getDrawChart(side));
+    idLoadCallback(side + 'Table', getDrawTable(side));
+    idLoadCallback('detail' + side + 'Chart', drawPieChart.bind(null, 'accessCounts', [0, 2], null));
+    idLoadCallback('detail' + side + 'Table', getDrawCountTable(side));
+  });
+
   $('#dateSelector input[name=lastDays]').on('click', function submitForm() {
     this.form.submit();
   });

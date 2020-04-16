@@ -1,30 +1,22 @@
 <?php
 
+/**
+ * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
+ * @author Pavel Břoušek <brousek@ics.muni.cz>
+ */
+
 namespace SimpleSAML\Module\proxystatistics\Auth\Process;
 
 use DateTime;
 use SimpleSAML\Auth\ProcessingFilter;
-use SimpleSAML\Error\Exception;
 use SimpleSAML\Logger;
+use SimpleSAML\Module\proxystatistics\DatabaseCommand;
 
-/**
- *
- * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
- */
 class Statistics extends ProcessingFilter
 {
-    private $config;
-    private $reserved;
-
     public function __construct($config, $reserved)
     {
         parent::__construct($config, $reserved);
-
-        if (!isset($config['config'])) {
-            throw new Exception("missing mandatory configuration option 'config'");
-        }
-        $this->config = (array)$config['config'];
-        $this->reserved = (array)$reserved;
     }
 
     public function process(&$request)
@@ -50,13 +42,11 @@ class Statistics extends ProcessingFilter
 
         if (isset($request['perun']['user'])) {
             $user = $request['perun']['user'];
-            Logger::notice('UserId: ' . $user->getId() . ', identity: ' .  $eduPersonUniqueId . ', service: '
+            Logger::notice('UserId: ' . $user->getId() . ', identity: ' . $eduPersonUniqueId . ', service: '
                 . $spEntityId . ', external identity: ' . $sourceIdPEppn . ' from ' . $sourceIdPEntityId);
         } else {
-            Logger::notice('User identity: ' .  $eduPersonUniqueId . ', service: ' . $spEntityId .
+            Logger::notice('User identity: ' . $eduPersonUniqueId . ', service: ' . $spEntityId .
                 ', external identity: ' . $sourceIdPEppn . ' from ' . $sourceIdPEntityId);
         }
-
     }
-
 }

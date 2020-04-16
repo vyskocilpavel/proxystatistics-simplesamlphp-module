@@ -1,7 +1,6 @@
 {
   "name": "cesnet/simplesamlphp-module-proxystatistics",
   "description": "A SimpleSAMLPHP module for statistics",
-  "version": "3.3.0-dev",
   "type": "simplesamlphp-module",
   "keywords": ["statistics","simplesamlphp"],
   "license": "BSD-2-Clause",
@@ -12,10 +11,14 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0",
-    "cesnet/simplesamlphp-module-perun" : "~3.0",
+    "php": ">=7.1.0",
+    "cesnet/simplesamlphp-module-perun" : "^3.0",
     "simplesamlphp/simplesamlphp": "~1.17",
     "ext-mysqli": "*",
     "ext-json": "*"
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "*",
+    "symplify/easy-coding-standard": "^7.2"
   }
 }
