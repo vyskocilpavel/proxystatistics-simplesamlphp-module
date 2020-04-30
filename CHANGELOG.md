@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Removed
+- Removed logging info about login in Statistics Process filter
 
 ## [v4.0.0]
 #### Added
