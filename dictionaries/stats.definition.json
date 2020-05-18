@@ -143,6 +143,10 @@
     "en": "identity provider",
     "cs": "poskytovatele identity"
   },
+  "through_mode_MULTI_IDP": {
+    "en": "identity provider",
+    "cs": "poskytovatele identity"
+  },
   "summary_logins_info": {
     "en": "The chart shows overall number of logins from identity providers for each day.",
     "cs": "Graf zobrazuje počet přihlášení za každý den."

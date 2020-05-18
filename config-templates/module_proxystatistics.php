@@ -11,13 +11,17 @@
 $config = [
 
     /*
-     * Choose one of the following modes: PROXY, IDP, SP
+     * Choose one of the following modes: PROXY, IDP, SP, MULTI_IDP
+     * PROXY - collects data about number of logins from each identity provider and accessed services
+     * IDP - collects data about accessed services through given identity provider
+     * SP - collects data about identity providers used for access to given service
+     * MULTI_IDP - similar to IDP mode, stores more identity providers in one database
      */
     'mode' => 'PROXY',
 
     /*
      * EntityId and name of IdP
-     * REQUIRED FOR IDP MODE
+     * REQUIRED FOR IDP AND MULTI_IDP MODE
      */
     //'IDP' => [
     //    'id' => '',
