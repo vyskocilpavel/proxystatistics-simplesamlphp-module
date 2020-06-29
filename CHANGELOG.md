@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Added
+- Added MULTI_IDP mode
 
 ## [v4.1.0]
 #### Removed

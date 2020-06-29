@@ -16,6 +16,8 @@ class Config
 
     public const MODE_SP = 'SP';
 
+    public const MODE_MULTI_IDP = 'MULTI_IDP';
+
     public const SIDES = [self::MODE_IDP, self::MODE_SP];
 
     public const MODE_PROXY = 'PROXY';
@@ -43,7 +45,7 @@ class Config
         $this->config = Configuration::getConfig(self::CONFIG_FILE_NAME);
         $this->store = $this->config->getConfigItem(self::STORE, null);
         $this->tables = $this->config->getArray('tables', []);
-        $this->mode = $this->config->getValueValidate(self::MODE, ['PROXY', 'IDP', 'SP'], 'PROXY');
+        $this->mode = $this->config->getValueValidate(self::MODE, ['PROXY', 'IDP', 'SP', 'MULTI_IDP'], 'PROXY');
     }
 
     private function __clone()

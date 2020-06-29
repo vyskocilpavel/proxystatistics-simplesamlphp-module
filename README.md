@@ -17,7 +17,8 @@ Once you have installed SimpleSAMLphp, installing this module is very simple. Fi
 2. For this database run script to create tables. Script is available in config-templates/tables.sql.
 3. Copy config-templates/module_proxystatistics.php to your config folder and fill it.
 4. Configure, according to mode
-* for PROXY mode, configure IdPAttribute filter from Perun module to get sourceIdPName from IdP metadata:
+
+* PROXY - collects data about number of logins from each identity provider and accessed services; for PROXY mode, configure IdPAttribute filter from Perun module to get sourceIdPName from IdP metadata:
 ```
     50 => [
         'class' => 'perun:IdPAttribute',
@@ -27,16 +28,23 @@ Once you have installed SimpleSAMLphp, installing this module is very simple. Fi
     ],
     // where 50 is priority (for example, must not be used for other modules)
 ```
-* for IDP mode, configure entity ID and name in `module_proxystatistics.php`
+* IDP - collects data about accessed services through given identity provider; for IDP mode, configure entity ID and name in `module_proxystatistics.php`
 ```
     'IDP' => [
         'id' => '',
         'name' => '',
     ],
 ```
-* for SP mode, configure entity ID and name in `module_proxystatistics.php`
+* SP - collects data about identity providers used for access to given service; for SP mode, configure entity ID and name in `module_proxystatistics.php`
 ```
     'SP' => [
+        'id' => '',
+        'name' => '',
+    ],
+```
+* MULTI_IDP - similar to IDP mode, stores more identity providers in one database; for MULTI_IDP mode, configure entity ID and name in each `module_proxystatistics.php` we want to get statistics from
+```
+    'IDP' => [
         'id' => '',
         'name' => '',
     ],

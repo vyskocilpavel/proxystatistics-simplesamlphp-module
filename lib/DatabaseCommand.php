@@ -218,7 +218,7 @@ class DatabaseCommand
             Config::MODE_IDP => [],
             Config::MODE_SP => [],
         ];
-        if ($this->mode !== Config::MODE_IDP) {
+        if ($this->mode !== Config::MODE_IDP && $this->mode !== Config::MODE_MULTI_IDP) {
             $entities[Config::MODE_IDP]['id'] = $request['saml:sp:IdP'];
             $entities[Config::MODE_IDP]['name'] = $request['Attributes']['sourceIdPName'][0];
         }
@@ -227,8 +227,15 @@ class DatabaseCommand
             $entities[Config::MODE_SP]['name'] = $request['Destination']['name']['en'] ?? '';
         }
 
-        if ($this->mode !== Config::MODE_PROXY) {
+        if ($this->mode !== Config::MODE_PROXY && $this->mode !== Config::MODE_MULTI_IDP) {
             $entities[$this->mode] = $this->config->getSideInfo($this->mode);
+            if (empty($entities[$this->mode]['id']) || empty($entities[$this->mode]['name'])) {
+                Logger::error('Invalid configuration (id, name) for ' . $this->mode);
+            }
+        }
+
+        if ($this->mode === Config::MODE_MULTI_IDP) {
+            $entities[Config::MODE_IDP] = $this->config->getSideInfo(Config::MODE_IDP);
             if (empty($entities[$this->mode]['id']) || empty($entities[$this->mode]['name'])) {
                 Logger::error('Invalid configuration (id, name) for ' . $this->mode);
             }

@@ -195,7 +195,7 @@ class Templates
         $mode = Config::getInstance()->getMode();
         $t->data['mode'] = $mode;
         $t->data['summaryGraphs'] = [];
-        if ($mode === Config::MODE_PROXY) {
+        if ($mode === Config::MODE_PROXY || $mode === Config::MODE_MULTI_IDP) {
             foreach (Config::SIDES as $side) {
                 $t->data['summaryGraphs'][$side] = [];
                 $t->data['summaryGraphs'][$side]['Providers'] = 'col-md-6 graph';
