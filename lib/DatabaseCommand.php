@@ -199,6 +199,9 @@ class DatabaseCommand
 
     private function writeLogin($date, $ids, $user)
     {
+        if (empty($user)) {
+            return false;
+        }
         $params = array_merge($ids, [
             'day' => $date->format('Y-m-d'),
             'logins' => 1,
