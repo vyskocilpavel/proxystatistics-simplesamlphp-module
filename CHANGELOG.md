@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [v4.2.0]
 #### Added
 - Added MULTI_IDP mode
 
@@ -162,6 +164,7 @@ All notable changes to this project will be documented in this file.
 - Changelog
 
 [Unreleased]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/master
+[v4.2.0]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/v4.2.0
 [v4.1.0]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/v4.1.0
 [v4.0.0]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/v4.0.0
 [v3.2.1]: https://github.com/CESNET/proxystatistics-simplesamlphp-module/tree/v3.2.1
