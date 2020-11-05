@@ -239,7 +239,7 @@ class DatabaseCommand
 
         if ($this->mode === Config::MODE_MULTI_IDP) {
             $entities[Config::MODE_IDP] = $this->config->getSideInfo(Config::MODE_IDP);
-            if (empty($entities[$this->mode]['id']) || empty($entities[$this->mode]['name'])) {
+            if (empty($entities[Config::MODE_IDP]['id']) || empty($entities[Config::MODE_IDP]['name'])) {
                 Logger::error('Invalid configuration (id, name) for ' . $this->mode);
             }
         }
