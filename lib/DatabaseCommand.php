@@ -227,7 +227,11 @@ class DatabaseCommand
         }
         if ($this->mode !== Config::MODE_SP) {
             $entities[Config::MODE_SP]['id'] = $request['Destination']['entityid'];
-            $entities[Config::MODE_SP]['name'] = $request['Destination']['name']['en'] ?? '';
+            if (isset($request['Destination']['UIInfo']['DisplayName']['en'])) {
+                $entities[Config::MODE_SP]['name'] = $request['Destination']['UIInfo']['DisplayName']['en'];
+            } else {
+                $entities[Config::MODE_SP]['name'] = $request['Destination']['name']['en'] ?? '';
+            }
         }
 
         if ($this->mode !== Config::MODE_PROXY && $this->mode !== Config::MODE_MULTI_IDP) {

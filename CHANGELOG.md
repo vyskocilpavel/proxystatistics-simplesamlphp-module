@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+#### Fixed
+- Allow to get SP name from UIInfo>DisplayName if isset
 
 ## [v4.2.1]
 #### Fixed
