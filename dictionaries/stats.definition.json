@@ -27,6 +27,10 @@
     "en": "Last 30 days",
     "cs": "Posledních 30 dnů"
   },
+  "time_range_three_months": {
+    "en": "Last 3 months",
+    "cs": "Poslední 3 měsíce"
+  },
   "time_range_year": {
     "en": "Last year",
     "cs": "Poslední rok"
