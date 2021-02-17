@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+#### Added
+- Add statistics view for 3 months
+
 ## [v4.2.2]
 #### Fixed
 - Allow to get SP name from UIInfo>DisplayName if isset
