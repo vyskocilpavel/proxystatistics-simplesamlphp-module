@@ -135,7 +135,8 @@ class DatabaseCommand
                 $msg = 'Aggregating daily statistics per ' . implode(' and ', array_filter($ids));
                 Logger::info($msg);
                 $query = 'INSERT INTO ' . $this->tables[self::TABLE_SUM] . ' '
-                    . 'SELECT NULL, YEAR(`day`), MONTH(`day`), DAY(`day`), ';
+                    . '(`year`,`month`,`day`,idpId,spId,logins,users) '
+                    . 'SELECT YEAR(`day`), MONTH(`day`), DAY(`day`), ';
                 foreach ($ids as $id) {
                     $query .= ($id === null ? '0' : $id) . ',';
                 }
