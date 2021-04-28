@@ -7,6 +7,7 @@
 
 namespace SimpleSAML\Module\proxystatistics;
 
+use SimpleSAML\Auth\Simple;
 use SimpleSAML\Configuration;
 use SimpleSAML\Logger;
 use SimpleSAML\Module;
@@ -106,7 +107,7 @@ class Templates
 
         $authSource = $config->getRequiredAuthSource();
         if ($authSource) {
-            $as = new \SimpleSAML\Auth\Simple($authSource);
+            $as = new Simple($authSource);
             $as->requireAuth();
         }
 
@@ -252,11 +253,15 @@ class Templates
             self::getFullUrl('assets/js/chartjs-plugin-zoom.min.js') . '"></script>';
         $t->data['head'] .= '<script type="text/javascript" src="' .
             self::getFullUrl('assets/js/index.js') . '"></script>';
+
+        $t->data['head'] .= Utils::metaData(
+            'module_url_base',
+            self::getFullUrl()
+        );
     }
 
-    private static function getFullUrl($path): string
+    private static function getFullUrl($path = ''): string
     {
-        $moduleUrl = Module::getModuleUrl('proxystatistics/');
-        return $moduleUrl . $path;
+        return Module::getModuleUrl('proxystatistics/') . $path;
     }
 }
