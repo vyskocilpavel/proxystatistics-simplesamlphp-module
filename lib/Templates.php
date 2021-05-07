@@ -7,6 +7,7 @@
 
 namespace SimpleSAML\Module\proxystatistics;
 
+use SimpleSAML\Auth\Simple;
 use SimpleSAML\Configuration;
 use SimpleSAML\Logger;
 use SimpleSAML\Module;
@@ -92,7 +93,7 @@ class Templates
         $t->data['header'] = $t->t('{proxystatistics:stats:' . $side . 'Detail_header_name}') . $name;
 
         $t->data['htmlinject']['htmlContentPost'][]
-            = '<script type="text/javascript" src="' . Module::getModuleUrl('proxystatistics/index.js') . '"></script>';
+            = '<script type="text/javascript" src="' . self::getFullUrl('index.js') . '"></script>';
 
         $t->data['side'] = $side;
         $t->data['other_side'] = Utils::theOther(Config::SIDES, $side);
@@ -106,7 +107,7 @@ class Templates
 
         $authSource = $config->getRequiredAuthSource();
         if ($authSource) {
-            $as = new \SimpleSAML\Auth\Simple($authSource);
+            $as = new Simple($authSource);
             $as->requireAuth();
         }
 
@@ -121,9 +122,9 @@ class Templates
         ); // indexed from 0
 
         $t->data['tabsAttributes'] = [
-            'PROXY' => 'id="tab-1" href="summary.php?lastDays=' . $lastDays . '"',
-            'IDP' => 'id="tab-2" href="identityProviders.php?lastDays=' . $lastDays . '"',
-            'SP' => 'id="tab-3" href="serviceProviders.php?lastDays=' . $lastDays . '"',
+            'PROXY' => 'id="tab-1" href="' . self::getFullUrl('summary.php') . '?lastDays=' . $lastDays . '"',
+            'IDP' => 'id="tab-2" href="' . self::getFullUrl('identityProviders.php') . '?lastDays=' . $lastDays . '"',
+            'SP' => 'id="tab-3" href="' . self::getFullUrl('serviceProviders.php') . '?lastDays=' . $lastDays . '"',
         ];
         $mode = $config->getMode();
         if ($mode !== Config::MODE_PROXY) {
@@ -233,24 +234,34 @@ class Templates
         $t->data['jquery'] = ['core' => true, 'ui' => true, 'css' => true];
         $t->data['head'] = '';
         $t->data['head'] .= '<link rel="stylesheet"  media="screen" type="text/css" href="' .
-            Module::getModuleUrl('proxystatistics/assets/css/bootstrap.min.css') . '" />';
+            self::getFullUrl('assets/css/bootstrap.min.css') . '" />';
         $t->data['head'] .= '<link rel="stylesheet"  media="screen" type="text/css" href="' .
-            Module::getModuleUrl('proxystatistics/assets/css/statisticsproxy.css') . '" />';
+            self::getFullUrl('assets/css/statisticsproxy.css') . '" />';
         $t->data['head'] .= '<link rel="stylesheet" type="text/css" href="' .
-            Module::getModuleUrl('proxystatistics/assets/css/Chart.min.css') . '">';
+            self::getFullUrl('assets/css/Chart.min.css') . '">';
         $t->data['head'] .= '<script type="text/javascript" src="' .
-            Module::getModuleUrl('proxystatistics/assets/js/moment.min.js') . '"></script>';
+            self::getFullUrl('assets/js/moment.min.js') . '"></script>';
         if ($t->getLanguage() === 'cs') {
             $t->data['head'] .= '<script type="text/javascript" src="' .
-                Module::getModuleUrl('proxystatistics/assets/js/moment.cs.min.js') . '"></script>';
+                self::getFullUrl('assets/js/moment.cs.min.js') . '"></script>';
         }
         $t->data['head'] .= '<script type="text/javascript" src="' .
-            Module::getModuleUrl('proxystatistics/assets/js/Chart.min.js') . '"></script>';
+            self::getFullUrl('assets/js/Chart.min.js') . '"></script>';
         $t->data['head'] .= '<script type="text/javascript" src="' .
-            Module::getModuleUrl('proxystatistics/assets/js/hammer.min.js') . '"></script>';
+            self::getFullUrl('assets/js/hammer.min.js') . '"></script>';
         $t->data['head'] .= '<script type="text/javascript" src="' .
-            Module::getModuleUrl('proxystatistics/assets/js/chartjs-plugin-zoom.min.js') . '"></script>';
+            self::getFullUrl('assets/js/chartjs-plugin-zoom.min.js') . '"></script>';
         $t->data['head'] .= '<script type="text/javascript" src="' .
-            Module::getModuleUrl('proxystatistics/assets/js/index.js') . '"></script>';
+            self::getFullUrl('assets/js/index.js') . '"></script>';
+
+        $t->data['head'] .= Utils::metaData(
+            'module_url_base',
+            self::getFullUrl()
+        );
+    }
+
+    private static function getFullUrl($path = ''): string
+    {
+        return Module::getModuleUrl('proxystatistics/') . $path;
     }
 }

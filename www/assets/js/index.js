@@ -278,7 +278,12 @@ function drawPieChart(dataName, viewCols, url, getEl) {
 }
 
 function getDrawChart(side) {
-  return drawPieChart.bind(null, 'loginCountPer' + side, [0, 2], 'detail.php?side=' + side + '&id=');
+  return drawPieChart.bind(
+      null,
+      'loginCountPer' + side,
+      [0, 2],
+      getStatisticsData('module_url_base') + 'detail.php?side=' + side + '&id='
+  );
 }
 
 function drawCountTable(cols, dataCol, countCol, dataName, allowHTML, url, getEl) {
@@ -338,8 +343,9 @@ function drawCountTable(cols, dataCol, countCol, dataName, allowHTML, url, getEl
 }
 
 function getDrawTable(side) {
-  return drawCountTable.bind(null, ['tables_' + side, 'count'], 0, 2, 'loginCountPer' + side, false,
-    'detail.php?side=' + side + '&id=');
+  return drawCountTable.bind(null,
+      ['tables_' + side, 'count'], 0, 2, 'loginCountPer' + side, false,
+      getStatisticsData('module_url_base') + 'detail.php?side=' + side + '&id=');
 }
 
 function getDrawCountTable(side) {
