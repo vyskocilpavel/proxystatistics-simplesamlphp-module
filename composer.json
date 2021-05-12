@@ -21,7 +21,7 @@
     "ext-json": "*"
   },
   "suggest": {
-    "cesnet/simplesamlphp-module-perun" : "for logging that a user accessed a service",
+    "cesnet/simplesamlphp-module-perun" : "for logging that a user accessed a service"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
