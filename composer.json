@@ -8,14 +8,20 @@
     {
       "name": "Pavel Vyskocil",
       "email": "vyskocilpavel@muni.cz"
+    },
+    {
+      "name": "Pavel Brousek",
+      "email": "brousek@ics.muni.cz"
     }
   ],
   "require": {
-    "php": ">=7.1.0",
-    "cesnet/simplesamlphp-module-perun" : ">=3.0",
+    "php": ">=7.1",
     "simplesamlphp/simplesamlphp": "~1.17",
-    "ext-mysqli": "*",
+    "ext-pdo": "*",
     "ext-json": "*"
+  },
+  "suggest": {
+    "cesnet/simplesamlphp-module-perun" : "for logging that a user accessed a service"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "*",
