@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Pavel Břoušek <brousek@ics.muni.cz>
@@ -61,7 +61,12 @@ class Templates
         $t = new Template(Configuration::getInstance(), 'proxystatistics:detail-tpl.php');
 
         $lastDays = self::getSelectedTimeRange();
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]]);
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT, [
+            'options' => [
+                'min_range' => 0,
+
+            ],
+        ]);
         $t->data['id'] = $id;
 
         $t->data['detailGraphClass'] = '';
@@ -74,11 +79,15 @@ class Templates
         $dbCmd = new DatabaseCommand();
         $t->data['head'] .= Utils::metaData(
             'loginCountPerDay',
-            $dbCmd->getLoginCountPerDay($lastDays, [$side => $id])
+            $dbCmd->getLoginCountPerDay($lastDays, [
+                $side => $id,
+            ])
         );
         $t->data['head'] .= Utils::metaData(
             'accessCounts',
-            $dbCmd->getAccessCount(Utils::theOther(Config::SIDES, $side), $lastDays, [$side => $id])
+            $dbCmd->getAccessCount(Utils::theOther(Config::SIDES, $side), $lastDays, [
+                $side => $id,
+            ])
         );
 
         $translations = [
@@ -118,7 +127,14 @@ class Templates
             INPUT_GET,
             'tab',
             FILTER_VALIDATE_INT,
-            ['options' => ['default' => 0, 'min_range' => 0, 'max_range' => 2]]
+            [
+                'options' => [
+                    'default' => 0,
+                    'min_range' => 0,
+                    'max_range' => 2,
+
+                ],
+            ]
         ); // indexed from 0
 
         $t->data['tabsAttributes'] = [
@@ -142,10 +158,7 @@ class Templates
         self::headIncludes($t);
 
         $dbCmd = new DatabaseCommand();
-        $t->data['head'] .= Utils::metaData(
-            'loginCountPerDay',
-            $dbCmd->getLoginCountPerDay($lastDays)
-        );
+        $t->data['head'] .= Utils::metaData('loginCountPerDay', $dbCmd->getLoginCountPerDay($lastDays));
 
         $translations = [
             'count' => $t->t('{proxystatistics:stats:count}'),
@@ -157,7 +170,9 @@ class Templates
             $otherSide = Utils::theOther(Config::SIDES, $side);
             $t->data['head'] .= Utils::metaData(
                 'loginCountPer' . $side,
-                $dbCmd->getAccessCount($side, $lastDays, [$otherSide => null])
+                $dbCmd->getAccessCount($side, $lastDays, [
+                    $otherSide => null,
+                ])
             );
             $translations['tables_' . $side] = $t->t('{proxystatistics:stats:side_' . $side . '}');
         }
@@ -225,13 +240,23 @@ class Templates
             INPUT_GET,
             'lastDays',
             FILTER_VALIDATE_INT,
-            ['options' => ['default' => 0, 'min_range' => 0]]
+            [
+                'options' => [
+                    'default' => 0,
+                    'min_range' => 0,
+
+                ],
+            ]
         );
     }
 
     private static function headIncludes($t)
     {
-        $t->data['jquery'] = ['core' => true, 'ui' => true, 'css' => true];
+        $t->data['jquery'] = [
+            'core' => true,
+            'ui' => true,
+            'css' => true,
+        ];
         $t->data['head'] = '';
         $t->data['head'] .= '<link rel="stylesheet"  media="screen" type="text/css" href="' .
             self::getFullUrl('assets/css/bootstrap.min.css') . '" />';
@@ -254,10 +279,7 @@ class Templates
         $t->data['head'] .= '<script type="text/javascript" src="' .
             self::getFullUrl('assets/js/index.js') . '"></script>';
 
-        $t->data['head'] .= Utils::metaData(
-            'module_url_base',
-            self::getFullUrl()
-        );
+        $t->data['head'] .= Utils::metaData('module_url_base', self::getFullUrl());
     }
 
     private static function getFullUrl($path = ''): string

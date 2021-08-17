@@ -1,8 +1,6 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
-
 ## [v4.3.0]
 #### Added
 - Add statistics view for 3 months
