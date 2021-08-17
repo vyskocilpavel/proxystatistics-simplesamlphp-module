@@ -1,3 +1,11 @@
+# 1.0.0 (2021-08-17)
+
+
+### Bug Fixes
+
+* correct dependencies ([3d0e014](https://github.com/vyskocilpavel/proxystatistics-simplesamlphp-module/commit/3d0e01431448a9af95cfe0a5f48b8c1cdeae0d58))
+* typo ([05929f5](https://github.com/vyskocilpavel/proxystatistics-simplesamlphp-module/commit/05929f5256175fa545c52130d2faaea5b68d6632))
+
 # Change Log
 All notable changes to this project will be documented in this file.
 
