@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Pavel Břoušek <brousek@ics.muni.cz>
@@ -16,7 +16,10 @@ $this->includeAtTemplateBase('includes/header.php');
                 <?php echo $this->t('{proxystatistics:stats:back_to_stats}'); ?>
             </a>
         </div>
-        <?php Templates::timeRange(['side' => $this->data['side'], 'id' => $this->data['id']]); ?>
+        <?php Templates::timeRange([
+            'side' => $this->data['side'],
+            'id' => $this->data['id'],
+        ]); ?>
         <h3><?php echo $this->t('{proxystatistics:stats:' . $this->data['side'] . 'Detail_dashboard_header}'); ?></h3>
         <div class="legend">
             <div>

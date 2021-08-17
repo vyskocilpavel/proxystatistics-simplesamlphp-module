@@ -1,10 +1,23 @@
 # proxystatistics-simplesamlphp-module
 [![Latest Stable Version](https://poser.pugx.org/cesnet/simplesamlphp-module-proxystatistics/v/stable)](https://packagist.org/packages/cesnet/simplesamlphp-module-proxystatistics)
 [![Total Downloads](https://poser.pugx.org/cesnet/simplesamlphp-module-proxystatistics/downloads)](https://packagist.org/packages/cesnet/simplesamlphp-module-proxystatistics)
-[![CodeFactor](https://www.codefactor.io/repository/github/cesnet/proxystatistics-simplesamlphp-module/badge)](https://www.codefactor.io/repository/github/cesnet/proxystatistics-simplesamlphp-module)
+[![CI](https://github.com/CESNET/proxystatistics-simplesamlphp-module/actions/workflows/build_and_check.yml/badge.svg)](https://github.com/CESNET/proxystatistics-simplesamlphp-module/actions/workflows/build_and_check.yml)
 [![License](https://poser.pugx.org/cesnet/simplesamlphp-module-proxystatistics/license)](https://packagist.org/packages/cesnet/simplesamlphp-module-proxystatistics)
 
 Module for simpleSAMLphp which shows Proxy IdP/SP statistics
+
+## Contribution
+
+This repository uses [Conventional Commits](https://www.npmjs.com/package/@commitlint/config-conventional).
+
+Any change that significantly changes behavior in a backward-incompatible way or requires a configuration change must be marked as BREAKING CHANGE.
+
+### Available scopes:
+* design
+* Auth Process filters:
+    * statistics
+* ...
+
 
 ## Instalation
 Once you have installed SimpleSAMLphp, installing this module is very simple. First of all, you will need to download Composer if you haven't already. After installing Composer, just execute the following command in the root of your SimpleSAMLphp installation:

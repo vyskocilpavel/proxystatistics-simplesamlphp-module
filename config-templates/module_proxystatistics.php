@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * This is an example configuration of SimpleSAMLphp Perun interface and additional features.
- * Copy this file to default config directory and edit the properties.
+ * This is an example configuration of SimpleSAMLphp Perun interface and additional features. Copy this file to default
+ * config directory and edit the properties.
  *
  * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
  * @author Pavel Břoušek <brousek@ics.muni.cz>
  */
 
 $config = [
-
     /*
      * Choose one of the following modes: PROXY, IDP, SP, MULTI_IDP
      * PROXY - collects data about number of logins from each identity provider and accessed services
@@ -47,10 +48,9 @@ $config = [
         'database.username' => 'stats',
         'database.password' => 'stats',
 
-        /**
-         * Configuration for SSL
-         * If you want to use SSL, fill these values and uncomment the block of code
-         */
+    /**
+     * Configuration for SSL If you want to use SSL, fill these values and uncomment the block of code
+     */
         //'database.driver_options' => [
         //    PDO::MYSQL_ATTR_SSL_KEY => '', // Path for the ssl key file
         //    PDO::MYSQL_ATTR_SSL_CERT => '', // Path for the ssl cert file
@@ -61,13 +61,13 @@ $config = [
 
     /**
      * Which attribute should be used as user ID.
+     *
      * @default uid
      */
     //'userIdAttribute' => 'uid',
 
     /**
-     * Database table names.
-     * Default is to keep the name (as in `tables.sql`)
+     * Database table names. Default is to keep the name (as in `tables.sql`)
      */
     'tableNames' => [
         //'statistics_sums' => 'statistics_sums',
@@ -76,14 +76,13 @@ $config = [
         //'statistics_sp' => 'statistics_sp',
     ],
 
-    /**
-     * Authentication source name if authentication should be required.
-     * Defaults to empty string.
-     */
+/**
+ * Authentication source name if authentication should be required. Defaults to empty string.
+ */
     //'requireAuth.source' => 'default-sp',
 
-    /**
-     * For how many days should the detailed statistics be kept. Minimum is 31.
-     */
+/**
+ * For how many days should the detailed statistics be kept. Minimum is 31.
+ */
     //'keepPerUser' => 62,
 ];

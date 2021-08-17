@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
  * @author Pavel Břoušek <brousek@ics.muni.cz>
@@ -90,7 +92,9 @@ class DatabaseCommand
             'SELECT IFNULL(name, identifier) ' .
             'FROM ' . $this->tables[$table] . ' ' .
             'WHERE ' . self::TABLE_IDS[$table] . '=:id',
-            ['id' => $id]
+            [
+                'id' => $id,
+            ]
         )->fetchColumn();
     }
 
@@ -101,13 +105,17 @@ class DatabaseCommand
                  'logins AS count, users ' .
                  'FROM ' . $this->tables[self::TABLE_SUM] . ' ' .
                  'WHERE ';
-        $where = array_merge([Config::MODE_SP => null, Config::MODE_IDP => null], $where);
+        $where = array_merge([
+            Config::MODE_SP => null,
+            Config::MODE_IDP => null,
+        ], $where);
         self::addWhereId($where, $query, $params);
         self::addDaysRange($days, $query, $params);
         $query .= //'GROUP BY day ' .
                   'ORDER BY day ASC';
 
-        return $this->read($query, $params)->fetchAll(PDO::FETCH_ASSOC);
+        return $this->read($query, $params)
+            ->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getAccessCount($side, $days, $where = [])
@@ -124,7 +132,8 @@ class DatabaseCommand
         $query .= 'GROUP BY ' . self::TABLE_IDS[$table] . ' ';
         $query .= 'ORDER BY SUM(logins) DESC';
 
-        return $this->read($query, $params)->fetchAll(PDO::FETCH_NUM);
+        return $this->read($query, $params)
+            ->fetchAll(PDO::FETCH_NUM);
     }
 
     public function aggregate()
@@ -146,7 +155,7 @@ class DatabaseCommand
                     . 'GROUP BY ' . self::getAggregateGroupBy($ids) . ' '
                     . 'ON DUPLICATE KEY UPDATE id=id;';
                 // do nothing if row already exists
-                if (!$this->conn->write($query)) {
+                if (! $this->conn->write($query)) {
                     Logger::warning($msg . ' failed');
                 }
             }
@@ -158,12 +167,14 @@ class DatabaseCommand
         Logger::info($msg);
         // INNER JOIN ensures that only aggregated stats are deleted
         if (
-            !$this->conn->write(
+            ! $this->conn->write(
                 'DELETE u FROM ' . $this->tables[self::TABLE_PER_USER] . ' AS u '
                 . 'INNER JOIN ' . $this->tables[self::TABLE_SUM] . ' AS s '
                 . 'ON YEAR(u.`day`)=s.`year` AND MONTH(u.`day`)=s.`month` AND DAY(u.`day`)=s.`day`'
                 . 'WHERE u.`day` < CURDATE() - INTERVAL :days DAY',
-                ['days' => $keepPerUserDays]
+                [
+                    'days' => $keepPerUserDays,
+                ]
             )
         ) {
             Logger::warning($msg . ' failed');
@@ -259,10 +270,16 @@ class DatabaseCommand
         $this->conn->write(
             'INSERT INTO ' . $this->tables[$table]
             . '(identifier, name) VALUES (:identifier, :name1) ON DUPLICATE KEY UPDATE name = :name2',
-            ['identifier' => $identifier, 'name1' => $name, 'name2' => $name]
+            [
+                'identifier' => $identifier,
+                'name1' => $name,
+                'name2' => $name,
+            ]
         );
         return $this->read('SELECT ' . $idColumn . ' FROM ' . $this->tables[$table]
-            . ' WHERE identifier=:identifier', ['identifier' => $identifier])
+            . ' WHERE identifier=:identifier', [
+                'identifier' => $identifier,
+            ])
             ->fetchColumn();
     }
 

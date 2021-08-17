@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
@@ -10,7 +10,9 @@ use SimpleSAML\Module\proxystatistics\Templates;
 
 ?>
 
-<?php Templates::timeRange(['tab' => $this->data['tab']]); ?>
+<?php Templates::timeRange([
+    'tab' => $this->data['tab'],
+]); ?>
 <h2>
     <?php
     echo $this->t('{proxystatistics:stats:side_' . $this->data['side'] . 's}');

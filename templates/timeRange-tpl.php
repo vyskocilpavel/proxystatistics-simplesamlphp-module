@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Pavel Břoušek <brousek@ics.muni.cz>
@@ -19,7 +19,13 @@
         }
         ?>
         <?php
-        $values = [0 => 'all', 7 => 'week', 30 => 'month', 90 => 'three_months', 365 => 'year'];
+        $values = [
+            0 => 'all',
+            7 => 'week',
+            30 => 'month',
+            90 => 'three_months',
+            365 => 'year',
+        ];
         $i = 0;
         ?>
         <?php foreach ($values as $value => $str) : ?>

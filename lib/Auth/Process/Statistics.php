@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @author Pavel Vyskočil <vyskocilpavel@muni.cz>
  * @author Pavel Břoušek <brousek@ics.muni.cz>
@@ -9,7 +11,6 @@ namespace SimpleSAML\Module\proxystatistics\Auth\Process;
 
 use DateTime;
 use SimpleSAML\Auth\ProcessingFilter;
-use SimpleSAML\Logger;
 use SimpleSAML\Module\proxystatistics\DatabaseCommand;
 
 class Statistics extends ProcessingFilter

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * @author Pavel Břoušek <brousek@ics.muni.cz>
  */
@@ -83,7 +85,10 @@ class Config
     public function getSideInfo($side)
     {
         assert(in_array($side, [self::SIDES], true));
-        return array_merge(['name' => '', 'id' => ''], $this->config->getArray($side, []));
+        return array_merge([
+            'name' => '',
+            'id' => '',
+        ], $this->config->getArray($side, []));
     }
 
     public function getRequiredAuthSource()
